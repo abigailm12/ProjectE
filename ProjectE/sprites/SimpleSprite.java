@@ -30,9 +30,9 @@ public class SimpleSprite implements DisplayableSprite {
 		
 		if (image == null) {
 			try {
-				image = ImageIO.read(new File("res/simple-sprite.png"));
-				this.height = this.image.getHeight(null);
-				this.width = this.image.getWidth(null);
+				image = ImageIO.read(new File("res/quack 1.0.png"));
+				this.height = this.image.getHeight(null) / 2;
+				this.width = this.image.getWidth(null) / 2;
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
