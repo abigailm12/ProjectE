@@ -4,10 +4,15 @@ public class ShellUniverse implements Universe {
 
 	private boolean complete = false;	
 	private DisplayableSprite player1 = null;
+	private Background background = null;	
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
 
 	public ShellUniverse () {
+		
+		background = new TiledBackground();
+		backgrounds =new ArrayList<Background>();
+		backgrounds.add(background);
 
 		this.setXCenter(0);
 		this.setYCenter(0);
