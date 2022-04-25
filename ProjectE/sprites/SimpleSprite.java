@@ -6,12 +6,16 @@ import javax.imageio.ImageIO;
 
 public class SimpleSprite implements DisplayableSprite {
 
-	private static Image image;	
+	private static Image northImage;
+	private static Image eastImage;
+	private static Image westImage;
+	private static Image southImage;
 	private double centerX = 0;
 	private double centerY = 0;
 	private double width = 50;
 	private double height = 50;
 	private boolean dispose = false;	
+	private int direction = 0; //0:North 1:East 2:South 3:West
 
 	private final double VELOCITY = 200;
 
@@ -28,11 +32,14 @@ public class SimpleSprite implements DisplayableSprite {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		
-		if (image == null) {
+		if (northImage == null) {
 			try {
-				image = ImageIO.read(new File("res/quack 1.0.png"));
-				this.height = this.image.getHeight(null) / 2;
-				this.width = this.image.getWidth(null) / 2;
+				northImage = ImageIO.read(new File("res/quack1.0NORTH.png"));
+				eastImage = ImageIO.read(new File("res/quack1.0EAST.png"));
+				southImage = ImageIO.read(new File("res/quack1.0SOUTH.png"));
+				westImage = ImageIO.read(new File("res/quack1.0WEST.png"));
+			//	this.height = this.northImage.getHeight(null) / 2;
+			//	this.width = this.northImage.getWidth(null) / 2;
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -41,7 +48,15 @@ public class SimpleSprite implements DisplayableSprite {
 	}
 
 	public Image getImage() {
-		return image;
+		if (direction == 0) {
+			return northImage;
+		} else if (direction == 1) {
+			return eastImage;
+		} else if (direction == 2) {
+			return southImage;
+		} else {
+			return westImage;
+		}
 	}
 	
 	//DISPLAYABLE
@@ -92,21 +107,25 @@ public class SimpleSprite implements DisplayableSprite {
 		double velocityX = 0;
 		double velocityY = 0;
 		
-		//LEFT	
+		// WEST	
 		if (keyboard.keyDown(37)) {
 			velocityX = -VELOCITY;
+			direction = 3;
 		}
-		//UP
+		//NORTH
 		if (keyboard.keyDown(38)) {
-			velocityY = -VELOCITY;			
+			velocityY = -VELOCITY;	
+			direction = 0;
 		}
-		// RIGHT
+		// EAST
 		if (keyboard.keyDown(39)) {
 			velocityX += VELOCITY;
+			direction = 1;
 		}
-		// DOWN
+		// SOUTH
 		if (keyboard.keyDown(40)) {
-			velocityY += VELOCITY;			
+			velocityY += VELOCITY;	
+			direction = 2;
 		}
 
 		double deltaX = actual_delta_time * 0.001 * velocityX;
