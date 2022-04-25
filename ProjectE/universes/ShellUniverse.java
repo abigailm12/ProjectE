@@ -10,9 +10,15 @@ public class ShellUniverse implements Universe {
 
 	public ShellUniverse () {
 		
+		//tiled background
 		background = new TiledBackground();
 		backgrounds =new ArrayList<Background>();
 		backgrounds.add(background);
+		
+		//barrier sprites
+		ArrayList<DisplayableSprite> barriers = ((MappedBackground)background).getBarriers();
+		((MappedBackground) background).getBarriers();
+		sprites.addAll(barriers);
 
 		this.setXCenter(0);
 		this.setYCenter(0);
