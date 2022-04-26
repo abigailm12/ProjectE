@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class SimpleSprite implements DisplayableSprite {
+public class QuackSprite implements DisplayableSprite {
 
 	private static Image northImage;
 	private static Image eastImage;
@@ -13,14 +13,14 @@ public class SimpleSprite implements DisplayableSprite {
 	private long elapsedTime = 0;
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 50;
-	private double height = 50;
+	private double width = 13;
+	private double height = 13;
 	private boolean dispose = false;	
 	private int direction = 0; //0:North 1:East 2:South 3:West
 
-	private final double VELOCITY = 200;
+	private final double VELOCITY = 50;
 
-	public SimpleSprite(double centerX, double centerY, double height, double width) {
+	public QuackSprite(double centerX, double centerY, double height, double width) {
 		this(centerX, centerY);
 		
 		this.height = height;
@@ -28,7 +28,7 @@ public class SimpleSprite implements DisplayableSprite {
 	}
 
 	
-	public SimpleSprite(double centerX, double centerY) {
+	public QuackSprite(double centerX, double centerY) {
 
 		this.centerX = centerX;
 		this.centerY = centerY;
