@@ -10,6 +10,7 @@ public class SimpleSprite implements DisplayableSprite {
 	private static Image eastImage;
 	private static Image westImage;
 	private static Image southImage;
+	private long elapsedTime = 0;
 	private double centerX = 0;
 	private double centerY = 0;
 	private double width = 50;
@@ -103,7 +104,7 @@ public class SimpleSprite implements DisplayableSprite {
 	}
 
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-		
+		elapsedTime += actual_delta_time;
 		double velocityX = 0;
 		double velocityY = 0;
 		
@@ -127,12 +128,38 @@ public class SimpleSprite implements DisplayableSprite {
 			velocityY += VELOCITY;	
 			direction = 2;
 		}
-
-		double deltaX = actual_delta_time * 0.001 * velocityX;
-        this.centerX += deltaX;
 		
+		double deltaX = actual_delta_time * 0.001 * velocityX;
 		double deltaY = actual_delta_time * 0.001 * velocityY;
-    	this.centerY += deltaY;
+		if (checkBarrierCollision(universe, deltaX, 0) == false) {
+			centerX += deltaX;
+		}
+		
+		if (checkBarrierCollision(universe, 0, deltaY) == false) {
+			centerY += deltaY;
+		}
+	}
+		
+
+
+
+	public boolean checkBarrierCollision(Universe sprites, double deltaX, double deltaY) {
+		
+		boolean colliding = false;
+		
+		for (DisplayableSprite sprite : sprites.getSprites()) {
+			
+			if (sprite instanceof BarrierSprite) {
+				if (CollisionDetection.overlaps(this.getMinX() + deltaX, this.getMinY() + deltaY, 
+						this.getMaxX()  + deltaX, this.getMaxY() + deltaY, 
+						sprite.getMinX(),sprite.getMinY(), 
+						sprite.getMaxX(), sprite.getMaxY())) {
+					colliding = true;
+					break;
+				}
+			}
+		}
+		return colliding;		
 	}
 
 
