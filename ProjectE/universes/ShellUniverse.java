@@ -11,7 +11,11 @@ public class ShellUniverse implements Universe {
 	public ShellUniverse () {
 		
 		//tiled background
-		background = new TiledBackground();
+//		background = new TiledBackground();
+//		backgrounds =new ArrayList<Background>();
+//		backgrounds.add(background);
+		
+		background = new MappedBackground();
 		backgrounds =new ArrayList<Background>();
 		backgrounds.add(background);
 		
