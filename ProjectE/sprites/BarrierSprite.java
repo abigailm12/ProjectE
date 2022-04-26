@@ -18,7 +18,7 @@ public class BarrierSprite implements DisplayableSprite {
 		
 		if (image == null && visible) {
 			try {
-				image = ImageIO.read(new File("res/tiles/pink_tile.png"));
+				image = ImageIO.read(new File("res/8fc992.png"));
 			}
 			catch (IOException e) {
 				e.printStackTrace();
