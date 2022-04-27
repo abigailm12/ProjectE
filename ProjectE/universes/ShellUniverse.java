@@ -15,6 +15,7 @@ public class ShellUniverse implements Universe {
 //		backgrounds =new ArrayList<Background>();
 //		backgrounds.add(background);
 		
+		//mapped background
 		background = new MappedBackground();
 		backgrounds =new ArrayList<Background>();
 		backgrounds.add(background);
@@ -26,7 +27,7 @@ public class ShellUniverse implements Universe {
 
 		this.setXCenter(0);
 		this.setYCenter(0);
-		player1 = new QuackSprite(-250,-267);
+		player1 = new QuackSprite(-380,-243);
 		sprites.add(player1);
 			
 	}
@@ -88,7 +89,8 @@ public class ShellUniverse implements Universe {
 	}
 
 	public String toString() {
-		return "ShellUniverse";
+		//return "ShellUniverse";
+		return null;
 	}
 
 }

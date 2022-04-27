@@ -13,12 +13,12 @@ public class QuackSprite implements DisplayableSprite {
 	private long elapsedTime = 0;
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 13;
-	private double height = 13;
+	private double width = 30;
+	private double height = 30;
 	private boolean dispose = false;	
-	private int direction = 0; //0:North 1:East 2:South 3:West
+	private int direction = 2;//0:North 1:East 2:South 3:West
 
-	private final double VELOCITY = 50;
+	private final double VELOCITY = 100;
 
 	public QuackSprite(double centerX, double centerY, double height, double width) {
 		this(centerX, centerY);
