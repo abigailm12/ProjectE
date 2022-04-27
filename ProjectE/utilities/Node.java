@@ -4,20 +4,20 @@ public class Node
 	protected Node south;
 	protected Node west;
 	protected Node east;
-	protected String value;
+	protected int length;
 
-	public Node(String value, Node north, Node south, Node west, Node east)
+	public Node(int length, Node north, Node south, Node west, Node east)
 	{
-		this.value = value;
+		this.length = length;
 		this.north = north;
 		this.south = south;
 		this.west = west;
 		this.east = east;
 	}
 	
-	public String getValue()
+	public int getLength()
 	{
-		return this.value;
+		return this.length;
 	}
 		
 }
