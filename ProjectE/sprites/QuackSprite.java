@@ -38,7 +38,8 @@ public class QuackSprite implements DisplayableSprite {
 
 		if (northImage == null) {
 			try {
-				northImage = ImageIO.read(new File("res/quack1.0NORTH.png"));
+				//northImage = ImageIO.read(new File("res/quack1.0NORTH.png"));
+				northImage = ImageIO.read(new File("simple-sprite.png"));
 				eastImage = ImageIO.read(new File("res/quack1.0EAST.png"));
 				southImage = ImageIO.read(new File("res/quack1.0SOUTH.png"));
 				westImage = ImageIO.read(new File("res/quack1.0WEST.png"));
