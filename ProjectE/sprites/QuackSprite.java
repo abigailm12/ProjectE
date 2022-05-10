@@ -13,39 +13,42 @@ public class QuackSprite implements DisplayableSprite {
 	private long elapsedTime = 0;
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 30;
-	private double height = 30;
+	private double width = 25;
+	private double height = 25;
 	private boolean dispose = false;	
 	private int direction = 2;//0:North 1:East 2:South 3:West
+	public LinkedList list = new LinkedList();
+	private int margin = 15;
+	private boolean solved = false;
 
-	private final double VELOCITY = 100;
+	private final double VELOCITY = 0.025;
 
 	public QuackSprite(double centerX, double centerY, double height, double width) {
 		this(centerX, centerY);
-		
+
 		this.height = height;
 		this.width = width;
 	}
 
-	
+
 	public QuackSprite(double centerX, double centerY) {
 
 		this.centerX = centerX;
 		this.centerY = centerY;
-		
+
 		if (northImage == null) {
 			try {
 				northImage = ImageIO.read(new File("res/quack1.0NORTH.png"));
 				eastImage = ImageIO.read(new File("res/quack1.0EAST.png"));
 				southImage = ImageIO.read(new File("res/quack1.0SOUTH.png"));
 				westImage = ImageIO.read(new File("res/quack1.0WEST.png"));
-			//	this.height = this.northImage.getHeight(null) / 2;
-			//	this.width = this.northImage.getWidth(null) / 2;
+				//	this.height = this.northImage.getHeight(null) / 2;
+				//	this.width = this.northImage.getWidth(null) / 2;
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
-		}		
+		}
 	}
 
 	public Image getImage() {
@@ -59,13 +62,13 @@ public class QuackSprite implements DisplayableSprite {
 			return westImage;
 		}
 	}
-	
+
 	//DISPLAYABLE
-	
+
 	public boolean getVisible() {
 		return true;
 	}
-	
+
 	public double getMinX() {
 		return centerX - (width / 2);
 	}
@@ -97,58 +100,82 @@ public class QuackSprite implements DisplayableSprite {
 	public double getCenterY() {
 		return centerY;
 	};
-	
-	
+
+
 	public boolean getDispose() {
 		return dispose;
 	}
+	
+	public void solve() {
+		//look around current cell create nodes
+		//int direction = lookAround();
+		//ask for direction
+		//take x steps in that direction
+		//do it again
+	}
 
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
+
 		elapsedTime += actual_delta_time;
 		double velocityX = 0;
 		double velocityY = 0;
-		
-		// WEST	
-		if (keyboard.keyDown(37)) {
+
+		// recursive controls
+		if (elapsedTime % 20 == 0) {
+			lookAround(universe);
+		}
+
+		//lookAround(universe);
+		System.out.println(list);
+		int direction = list.nextStep();
+
+		//MOVE EAST
+		if (direction == 1) {
+			velocityX = VELOCITY;
+		}
+		//MOVE SOUTH
+		if (direction == 2) {
+			velocityY = VELOCITY;
+		}
+		//MOVE NORTH
+		if (direction == 0) {
+			velocityY = -VELOCITY;
+		}
+		//MOVE WEST
+		if (direction == 3) {
 			velocityX = -VELOCITY;
-			direction = 3;
 		}
-		//NORTH
-		if (keyboard.keyDown(38)) {
-			velocityY = -VELOCITY;	
-			direction = 0;
-		}
-		// EAST
-		if (keyboard.keyDown(39)) {
-			velocityX += VELOCITY;
-			direction = 1;
-		}
-		// SOUTH
-		if (keyboard.keyDown(40)) {
-			velocityY += VELOCITY;	
-			direction = 2;
-		}
-		
-		double deltaX = actual_delta_time * 0.001 * velocityX;
-		double deltaY = actual_delta_time * 0.001 * velocityY;
+
+
+		// User controls
+
+		/*
+		 * // WEST if (keyboard.keyDown(37)) { velocityX = -VELOCITY; direction = 3; }
+		 * //NORTH if (keyboard.keyDown(38)) { velocityY = -VELOCITY; direction = 0; }
+		 * // EAST if (keyboard.keyDown(39)) { velocityX += VELOCITY; direction = 1; }
+		 * // SOUTH if (keyboard.keyDown(40)) { velocityY += VELOCITY; direction = 2; }
+		 */
+
+		//double deltaX = actual_delta_time * 0.001 * velocityX;
+		//double deltaY = actual_delta_time * 0.001 * velocityY;
+		double deltaX = MappedBackground.TILE_WIDTH * velocityX;
+		double deltaY = MappedBackground.TILE_HEIGHT * velocityY;
 		if (checkBarrierCollision(universe, deltaX, 0) == false) {
 			centerX += deltaX;
 		}
-		
+
 		if (checkBarrierCollision(universe, 0, deltaY) == false) {
 			centerY += deltaY;
 		}
+
 	}
-		
-
-
 
 	public boolean checkBarrierCollision(Universe sprites, double deltaX, double deltaY) {
-		
+
 		boolean colliding = false;
-		
+
 		for (DisplayableSprite sprite : sprites.getSprites()) {
-			
+
 			if (sprite instanceof BarrierSprite) {
 				if (CollisionDetection.overlaps(this.getMinX() + deltaX, this.getMinY() + deltaY, 
 						this.getMaxX()  + deltaX, this.getMaxY() + deltaY, 
@@ -166,6 +193,59 @@ public class QuackSprite implements DisplayableSprite {
 	@Override
 	public void setDispose(boolean dispose) {
 		this.dispose = true;
+	}
+
+	public void lookAround(Universe universe) {
+
+		//this method is intended to find paths in the four directions around
+		//the cell Quack is currently on
+
+		int numPaths = 0;
+		boolean north = false;
+		boolean east = false;
+		boolean south = false;
+		boolean west = false;
+
+		//south
+		if (checkBarrierCollision(universe, 0, margin + 1) == false) {
+			south = true;
+			numPaths++;
+		}
+
+		//east
+		if (checkBarrierCollision(universe, margin + 1, 0) == false) {
+			east = true;
+			numPaths++;
+		}
+
+		//north
+		if (checkBarrierCollision(universe, 0, margin - 1) == false) {
+			north = true;
+			numPaths++;
+		}
+
+		//west
+		if (checkBarrierCollision(universe, margin - 1, 0) == false) {
+			west = true;
+			numPaths++;
+		}
+
+		if (south) {
+			list.add(0);
+		}
+
+		if (north) {
+			list.add(2);
+		}
+
+		if (west) {
+			list.add(1);;
+		}
+
+		if (east) {
+			list.add(3);
+		}	
+
 	}
 
 }

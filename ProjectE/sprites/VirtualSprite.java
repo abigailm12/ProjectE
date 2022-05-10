@@ -18,6 +18,8 @@ public class VirtualSprite implements DisplayableSprite {
 	public double getMinX() {
 		return centerX - (width / 2);
 	}
+	
+	public void solve() {}
 
 	public double getMaxX() {
 		return centerX + (width / 2);
