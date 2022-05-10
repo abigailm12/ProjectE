@@ -27,8 +27,9 @@ public class ShellUniverse implements Universe {
 
 		this.setXCenter(0);
 		this.setYCenter(0);
-		player1 = new QuackSprite(-380,-243);
+		player1 = new QuackSprite(-345, -243);
 		sprites.add(player1);
+		player1.solve();
 			
 	}
 

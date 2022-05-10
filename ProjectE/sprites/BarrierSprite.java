@@ -32,6 +32,8 @@ public class BarrierSprite implements DisplayableSprite {
 		
 	}
 	
+	public void solve() {}
+	
 
 	public Image getImage() {
 		return image;

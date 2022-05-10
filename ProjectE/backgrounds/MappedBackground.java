@@ -8,8 +8,9 @@ import javax.imageio.ImageIO;
 
 public class MappedBackground implements Background {
 	
-	protected static int TILE_WIDTH = AnimationFrame.SCREEN_WIDTH / 20;
-    protected static int TILE_HEIGHT = AnimationFrame.SCREEN_HEIGHT / 15;
+	public static int TILE_WIDTH = AnimationFrame.SCREEN_WIDTH / 20;
+    public static int TILE_HEIGHT = AnimationFrame.SCREEN_HEIGHT / 15;
+	//public static int TILE_HEIGHT = TILE_WIDTH;
     
     private Image barrier;
     private Image path;
@@ -19,7 +20,7 @@ public class MappedBackground implements Background {
     
     private int map[][] = new int[][] {
     	{0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
-    	{1,	1,	1,	1,	1,	0,	1,	1,	1,	1,	1,	1,	1,	1,	1,	0,	0,	0,	0,	0},
+    	{0,	1,	1,	1,	1,	0,	1,	1,	1,	1,	1,	1,	1,	1,	1,	0,	0,	0,	0,	0},
     	{0,	0,	0,	0,	1,	0,	1,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0},
     	{0,	0,	0,	0,	1,	0,	1,	0,	0,	1,	1,	1,	1,	1,	1,	1,	1,	1,	0,	0},
     	{0,	1,	0,	0,	1,	0,	1,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0},
@@ -31,6 +32,7 @@ public class MappedBackground implements Background {
     	{0,	0,	0,	1,	0,	0,	0,	1,	0,	0,	1,	0,	0,	0,	0,	0,	1,	0,	0,	0},
     	{0,	1,	1,	1,	1,	1,	1,	1,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0},
     	{0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	1,	1,	1,	1,	1,	1,	1,	1,	1,	0},
+    	{0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
     	{0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0},
 	};;
 	
