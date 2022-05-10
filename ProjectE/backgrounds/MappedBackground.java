@@ -166,6 +166,18 @@ public class MappedBackground implements Background {
 		return barriers;
 	}
 	
+	public ArrayList<DisplayableSprite> getPaths() {
+		ArrayList<DisplayableSprite> paths = new ArrayList<DisplayableSprite>();
+		for (int row = 0; row < map[0].length; row++) {
+			for (int col = 0; col < map.length; col++) {
+				if (map[col][row] != 0) {
+					paths.add(new BarrierSprite((row * TILE_WIDTH) - (AnimationFrame.SCREEN_WIDTH / 2), (col * TILE_HEIGHT) - (AnimationFrame.SCREEN_HEIGHT / 2), ((row + 1) * TILE_WIDTH) - (AnimationFrame.SCREEN_WIDTH / 2), ((col + 1) * TILE_HEIGHT) - (AnimationFrame.SCREEN_HEIGHT / 2)));
+				}
+			}
+		}
+		return paths;
+	}
+	
 
 	@Override
 	public double getShiftX() {
