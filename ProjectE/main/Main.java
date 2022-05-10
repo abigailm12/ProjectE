@@ -7,5 +7,5 @@ public class Main {
 		AnimationFrame frame = new AnimationFrame((Animation)animation);
 		frame.start();
 	}
-
 }
+
