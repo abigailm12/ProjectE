@@ -14,15 +14,75 @@ public class PathSprite implements DisplayableSprite {
 	private double height = 50;
 	private boolean dispose = false;	
 	
-	public PathSprite(double minX, double minY, double maxX, double maxY) {
+	public PathSprite(double minX, double minY, double maxX, double maxY, int colour) {
 		
 		if (image == null && visible) {
-			try {
-				image = ImageIO.read(new File("res/8fc992.png"));
+			if(colour == 1){
+				try {
+					image = ImageIO.read(new File("res/path1.PNG"));
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}		
+			else if(colour == 2){
+				try {
+					image = ImageIO.read(new File("res/path2.PNG"));
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else if(colour == 3){
+				try {
+					image = ImageIO.read(new File("res/path3.PNG"));
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else if(colour == 4){
+				try {
+					image = ImageIO.read(new File("res/path4.PNG"));
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else if(colour == 5){
+				try {
+					image = ImageIO.read(new File("res/path5.PNG"));
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else if(colour == 6){
+				try {
+					image = ImageIO.read(new File("res/path6.PNG"));
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else if(colour == 7){
+				try {
+					image = ImageIO.read(new File("res/path7.PNG"));
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else if(colour == 8){
+				try {
+					image = ImageIO.read(new File("res/path8.PNG"));
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else if(colour == 9){
+				try {
+					image = ImageIO.read(new File("res/path9.PNG"));
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		this.centerX = (minX + maxX) / 2;
