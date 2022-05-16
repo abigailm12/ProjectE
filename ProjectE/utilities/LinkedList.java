@@ -50,6 +50,55 @@ public class LinkedList implements ListIterator {
 
 	}
 	
+	public int add(boolean north, boolean south, boolean west, boolean east) {
+		
+		Node intersection = tail;
+		Node newNorth = null;
+		Node newSouth = null;
+		Node newWest = null;
+		Node newEast = null;
+		
+		if (north) {
+			newNorth = new Node(null, tail, null, null, false);
+			intersection.setNorth(newNorth);
+			size++;
+		} 
+		
+		if (south) {
+			newSouth = new Node(tail, null, null, null, false);
+			intersection.setSouth(newSouth);
+			size++;
+		}
+		
+		if (west) {
+			newWest = new Node(null, null, null, tail, false);
+			intersection.setWest(newWest);
+			size++;
+		}
+		
+		if (east) {
+			newEast = new Node(null, null, tail, null, false);
+			intersection.setEast(newEast);
+			size++;
+		}
+		
+		tail.setExplored(true);
+		int direction = nextStep();
+		
+		if (direction == 0) {
+			tail = newNorth;
+		} else if (direction == 2) {
+			tail = newSouth;
+		} else if (direction == 3) {
+			tail = newWest;
+		} else {
+			tail = newEast;
+		}
+		
+		return direction;
+		
+	}
+	
 	public void breakOff(Node node) {
 		
 		//get rid of all nodes after a given index

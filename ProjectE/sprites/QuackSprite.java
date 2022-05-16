@@ -114,9 +114,9 @@ public class QuackSprite implements DisplayableSprite {
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 
 		elapsedTime += actual_delta_time;
-		lookAround(universe);
+		direction = lookAround(universe);
 	
-		direction = list.nextStep();
+		//direction = list.nextStep();
 		
 		double deltaX = 0;
 		double deltaY = 0;
@@ -211,7 +211,7 @@ public class QuackSprite implements DisplayableSprite {
 		this.dispose = true;
 	}
 
-	public void lookAround(Universe universe) {
+	public int lookAround(Universe universe) {
 
 		//this method is intended to find paths in the four directions around
 		//the cell Quack is currently on
@@ -246,27 +246,37 @@ public class QuackSprite implements DisplayableSprite {
 			numPaths++;
 		}
 		
+		int direction = 0;
 		int previousDirection = list.getPreviousDirection();
-
-		if (south && previousDirection != 2) {
-			list.add(0);
-			System.out.println("made south node");
+		
+		if (numPaths < 3) {
+			if (south && previousDirection != 2) {
+				list.add(0);
+				System.out.println("made south node");
+			}
+	
+			if (north && previousDirection != 0) {
+				list.add(2);
+				System.out.println("made north node");
+			}
+	
+			if (west && previousDirection != 3) {
+				list.add(1);
+				System.out.println("made west node");
+			}
+	
+			if (east && previousDirection != 1) {
+				list.add(3);
+				System.out.println("made east node");
+			}
+			
+			direction = list.nextStep();
+			
+		} else {
+			direction = list.add(north, south, west, east);
 		}
-
-		if (north && previousDirection != 0) {
-			list.add(2);
-			System.out.println("made north node");
-		}
-
-		if (west && previousDirection != 3) {
-			list.add(1);
-			System.out.println("made west node");
-		}
-
-		if (east && previousDirection != 1) {
-			list.add(3);
-			System.out.println("made east node");
-		}	
+		
+		return direction;
 
 	}
 
