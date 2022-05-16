@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class PathSprite implements DisplayableSprite {
 
-	private static Image image;
+	private Image image;
 	private boolean visible = true;
 	private double centerX = 0;
 	private double centerY = 0;

@@ -24,12 +24,16 @@ public class ShellUniverse implements Universe {
 		ArrayList<DisplayableSprite> barriers = ((MappedBackground)background).getBarriers();
 		((MappedBackground) background).getBarriers();
 		sprites.addAll(barriers);
+		
+		//path sprites
+		ArrayList<DisplayableSprite> paths = ((MappedBackground)background).getPaths();
+		((MappedBackground) background).getPaths();
+		sprites.addAll(paths);
 
 		this.setXCenter(0);
 		this.setYCenter(0);
 		player1 = new QuackSprite(-345, -243);
 		sprites.add(player1);
-		player1.solve();
 			
 	}
 

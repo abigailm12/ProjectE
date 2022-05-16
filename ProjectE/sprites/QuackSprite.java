@@ -19,9 +19,9 @@ public class QuackSprite implements DisplayableSprite {
 	private int direction = 2;//0:North 1:East 2:South 3:West
 	public LinkedList list = new LinkedList();
 	private int margin = 15;
-	private boolean solved = false;
+	int steps = 0;
 
-	private final double VELOCITY = 0.025;
+	private final double VELOCITY = 0.0025;
 
 	public QuackSprite(double centerX, double centerY, double height, double width) {
 		this(centerX, centerY);
@@ -38,18 +38,22 @@ public class QuackSprite implements DisplayableSprite {
 
 		if (northImage == null) {
 			try {
-				//northImage = ImageIO.read(new File("res/quack1.0NORTH.png"));
-				northImage = ImageIO.read(new File("simple-sprite.png"));
+				northImage = ImageIO.read(new File("res/quack1.0NORTH.png"));
 				eastImage = ImageIO.read(new File("res/quack1.0EAST.png"));
 				southImage = ImageIO.read(new File("res/quack1.0SOUTH.png"));
 				westImage = ImageIO.read(new File("res/quack1.0WEST.png"));
-				//	this.height = this.northImage.getHeight(null) / 2;
-				//	this.width = this.northImage.getWidth(null) / 2;
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
+		
+		System.out.println("Step 0");
+		System.out.println("Number of nodes : " + list);
+		System.out.println("Previous direction : " + list.getPreviousDirection());
+		System.out.print("numPaths : ");
+		System.out.println("" + list.tail.getNumPaths());
+		System.out.println("");
 	}
 
 	public Image getImage() {
@@ -106,68 +110,79 @@ public class QuackSprite implements DisplayableSprite {
 	public boolean getDispose() {
 		return dispose;
 	}
-	
-	public void solve() {
-		//look around current cell create nodes
-		//int direction = lookAround();
-		//ask for direction
-		//take x steps in that direction
-		//do it again
-	}
 
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 
 		elapsedTime += actual_delta_time;
+		lookAround(universe);
+	
+		direction = list.nextStep();
+		
+		double deltaX = 0;
+		double deltaY = 0;
 		double velocityX = 0;
 		double velocityY = 0;
+		double marginX = 0;
+		double marginY = 0;
+		
+		DisplayableSprite currentPath = null;
+		
+		// finds the current path sprite quack is in
+		for (DisplayableSprite sprite : universe.getSprites()) {
 
-		// recursive controls
-		if (elapsedTime % 20 == 0) {
-			lookAround(universe);
+			if (sprite instanceof PathSprite) {
+				if (CollisionDetection.inside(this, sprite, 0, 0)) {
+					currentPath = sprite;
+					break;
+				}
+			}
 		}
-
-		//lookAround(universe);
-		System.out.println(list);
-		int direction = list.nextStep();
-
+		
 		//MOVE EAST
 		if (direction == 1) {
 			velocityX = VELOCITY;
+			//marginX = -5;
 		}
 		//MOVE SOUTH
 		if (direction == 2) {
 			velocityY = VELOCITY;
+			//marginY = -5;
 		}
 		//MOVE NORTH
 		if (direction == 0) {
 			velocityY = -VELOCITY;
+			//marginY = 5;
 		}
 		//MOVE WEST
 		if (direction == 3) {
 			velocityX = -VELOCITY;
+			//marginX = 5;
 		}
+		
+		// moves quack in given direction until he is no longer overlapping with currentPath
+		if (currentPath != null) {
+			while (CollisionDetection.overlaps((DisplayableSprite) this, currentPath, marginX, marginY)) {
+				
+				deltaX = MappedBackground.TILE_WIDTH * velocityX * 0.005;
+				deltaY = MappedBackground.TILE_HEIGHT * velocityY * 0.005;
 
+				if (checkBarrierCollision(universe, deltaX, 0) == false) {
+					centerX += deltaX;
+				}
 
-		// User controls
-
-		/*
-		 * // WEST if (keyboard.keyDown(37)) { velocityX = -VELOCITY; direction = 3; }
-		 * //NORTH if (keyboard.keyDown(38)) { velocityY = -VELOCITY; direction = 0; }
-		 * // EAST if (keyboard.keyDown(39)) { velocityX += VELOCITY; direction = 1; }
-		 * // SOUTH if (keyboard.keyDown(40)) { velocityY += VELOCITY; direction = 2; }
-		 */
-
-		//double deltaX = actual_delta_time * 0.001 * velocityX;
-		//double deltaY = actual_delta_time * 0.001 * velocityY;
-		double deltaX = MappedBackground.TILE_WIDTH * velocityX;
-		double deltaY = MappedBackground.TILE_HEIGHT * velocityY;
-		if (checkBarrierCollision(universe, deltaX, 0) == false) {
-			centerX += deltaX;
+				if (checkBarrierCollision(universe, 0, deltaY) == false) {
+					centerY += deltaY;
+				}
+		    
+			}
 		}
-
-		if (checkBarrierCollision(universe, 0, deltaY) == false) {
-			centerY += deltaY;
-		}
+		steps++;
+		System.out.println("Step " + steps);
+		System.out.println("Number of nodes : " + list);
+		System.out.println("Previous direction : " + list.getPreviousDirection());
+		//System.out.print("numPaths : ");
+		//System.out.println("" + list.tail.getNumPaths());
+		System.out.println("");
 
 	}
 
@@ -208,43 +223,49 @@ public class QuackSprite implements DisplayableSprite {
 		boolean west = false;
 
 		//south
-		if (checkBarrierCollision(universe, 0, margin + 1) == false) {
+		if (checkBarrierCollision(universe, 0, margin) == false) {
 			south = true;
 			numPaths++;
 		}
 
 		//east
-		if (checkBarrierCollision(universe, margin + 1, 0) == false) {
+		if (checkBarrierCollision(universe, margin, 0) == false) {
 			east = true;
 			numPaths++;
 		}
 
 		//north
-		if (checkBarrierCollision(universe, 0, margin - 1) == false) {
+		if (checkBarrierCollision(universe, 0, -margin) == false) {
 			north = true;
 			numPaths++;
 		}
 
 		//west
-		if (checkBarrierCollision(universe, margin - 1, 0) == false) {
+		if (checkBarrierCollision(universe, -margin, 0) == false) {
 			west = true;
 			numPaths++;
 		}
+		
+		int previousDirection = list.getPreviousDirection();
 
-		if (south) {
+		if (south && previousDirection != 2) {
 			list.add(0);
+			System.out.println("made south node");
 		}
 
-		if (north) {
+		if (north && previousDirection != 0) {
 			list.add(2);
+			System.out.println("made north node");
 		}
 
-		if (west) {
-			list.add(1);;
+		if (west && previousDirection != 3) {
+			list.add(1);
+			System.out.println("made west node");
 		}
 
-		if (east) {
+		if (east && previousDirection != 1) {
 			list.add(3);
+			System.out.println("made east node");
 		}	
 
 	}
