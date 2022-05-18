@@ -6,6 +6,7 @@ public class LinkedList implements ListIterator {
 	private int size = 1;
 	Node tail = new Node(null, null, null, null, true);
 	Node current = tail;
+	public boolean backtracking = false;
 	//previous direction variable represents the direction from which the tail node came
 	//
 	//			  tail
@@ -99,6 +100,20 @@ public class LinkedList implements ListIterator {
 		
 	}
 	
+	public int getOppositeDirection(int d) {
+		if (d == 0) {
+			return 2;
+		} else if (d == 1) {
+			return 3;
+		} else if (d == 2) {
+			return 0;
+		} else if (d == 3) {
+			return 1;
+		}
+		
+		return -1;
+	}
+	
 	public void breakOff(Node node) {
 		
 		//get rid of all nodes after a given index
@@ -111,57 +126,102 @@ public class LinkedList implements ListIterator {
 	
 	}
 	
-	public void backtrack() {
-		Node currentNode = tail;
-		int tempPreviousDirection = previousDirection;
-		while (tail.getNumPaths() < 3) {
-			//goes in previous direction
+	public int backtrack() {
+		int direction = 0;
+		//goes in the only direction he can while following nodes UNTIL he reaches a node that has 3 paths
+		//iterate through the list starting at tail checking the nullness of each link and going to the not null one
+		
+		direction = previousDirection;
+
+		if (current.getNode(direction) == null) {
+			System.out.println("found a turn");
+			if (current.getNorth() != null && direction != 2) {
+				direction = 0;
+				current = current.getNorth();
+			} else if (current.getEast() != null && direction != 3) {
+				direction = 1;
+				current = current.getEast();
+			} else if (current.getSouth() != null && direction != 0) {
+				direction = 2;
+				current = current.getSouth();
+			} else if (current.getWest() != null && direction != 1) {
+				direction = 3;
+				current = current.getWest();
+			}
 			
-			
+			return direction;
 		}
 		
-		breakOff(currentNode);		
+		int oppositeDirection = getOppositeDirection(direction);
+		if (current.getNode(direction).getNumPaths() > 2) {
+			backtracking = false;
+			current.getNode(direction).getNode(oppositeDirection).setNode(null, direction);
+			System.out.println("done backtracking");
+			current = current.getNode(direction);
+			return direction;
+		}
+		current = current.getNode(direction);		
+		return direction;
+			
+	}
+	
+	public int exploredIntersection() {
 		
+		int direction = 0;
+		System.out.println("explored intersection");
+		if (current.getNorth() != null && !current.getNorth().getExplored()) {
+			direction = 0;
+		} else if (current.getEast() != null && !current.getEast().getExplored()) {
+			direction = 1;
+		} else if (current.getSouth() != null && !current.getSouth().getExplored()) {
+			direction = 2;
+		} else if (current.getWest() != null && !current.getWest().getExplored()) {
+			direction = 3;
+		}
+ 		
+		return direction;
+
 	}
 	
 	public int nextStep() {
 		//Quack calls this method to determine which direction to go next
 		int direction = 0;
 		
-		if (current.getEast() != null) {
-		//if (tail.getEast() != null && tail.getEast().getExplored() == false) {
+		//if (current.getEast() != null) {
+		if (current.getEast() != null && current.getEast().getExplored() == false) {
 			direction = 1;
 			current = current.getEast();
 			this.previousDirection = 3;
-		//} else if (tail.getSouth() != null && tail.getSouth().getExplored() == false) {
-		} else if (current.getSouth() != null ) {
+		} else if (current.getSouth() != null && current.getSouth().getExplored() == false) {
+		//} else if (current.getSouth() != null ) {
 			direction = 2;
 			current = current.getSouth();
 			this.previousDirection = 0;
-		//} else if (tail.getWest() != null && tail.getWest().getExplored() == false) {
-		} else if (current.getWest() != null ) {
+		} else if (current.getWest() != null && current.getWest().getExplored() == false) {
+		//} else if (current.getWest() != null ) {
 			direction = 3;
 			current = current.getWest();
 			this.previousDirection = 1;
-		//} else if (tail.getNorth() != null && tail.getNorth().getExplored() == false) {
-		} else if (current.getNorth() != null ) {
+		} else if (current.getNorth() != null && current.getNorth().getExplored() == false) {
+		//} else if (current.getNorth() != null ) {
 			direction = 0;
 			current = current.getNorth();
 			this.previousDirection = 2;
 		} else {
-			direction = previousDirection;
+			backtracking = true;
+			System.out.println("backtracking");
+			direction = -1;
 		}
 		
 		return direction;
 	}
 	
-	public String toString() {
-		String str = "" + size;//"tail : " + tail.getExplored() + " | East : " + tail.getEast().getExplored();
-		return str;
-	}
-	
 	public int getPreviousDirection() {
 		return previousDirection;
+	}
+	
+	public int getSize() {
+		return size;
 	}
 	
 	@Override

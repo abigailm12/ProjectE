@@ -31,6 +31,18 @@ public class Node
 		return west;
 	}
 	
+	public Node getNode(int direction) {
+		if (direction == 0) {
+			return north;
+		} else if (direction == 1) {
+			return east;
+		} else if (direction == 2) {
+			return south;
+		} else {
+			return west;
+		}
+	}
+	
 	public boolean getExplored() {
 		return explored;
 	}
@@ -49,6 +61,18 @@ public class Node
 	
 	public void setWest(Node n) {
 		west = n;
+	}
+	
+	public void setNode(Node n, int direction) {
+		if (direction == 0) {
+			north = n;
+		} else if (direction == 1) {
+			east = n;
+		} else if (direction == 2) {
+			south = n;
+		} else {
+			west = n;
+		}
 	}
 	
 	public void setExplored(boolean b) {

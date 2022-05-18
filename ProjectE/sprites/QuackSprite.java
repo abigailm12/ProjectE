@@ -20,6 +20,7 @@ public class QuackSprite implements DisplayableSprite {
 	public LinkedList list = new LinkedList();
 	private int margin = 15;
 	int steps = 0;
+	
 
 	private final double VELOCITY = 0.0025;
 
@@ -114,7 +115,16 @@ public class QuackSprite implements DisplayableSprite {
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 
 		elapsedTime += actual_delta_time;
-		direction = lookAround(universe);
+		
+		if (list.backtracking) {
+			direction = list.backtrack();
+		} else {
+			direction = lookAround(universe);
+		}
+		
+		if (direction == -1) {
+			direction = list.backtrack();
+		}
 	
 		//direction = list.nextStep();
 		
@@ -178,10 +188,10 @@ public class QuackSprite implements DisplayableSprite {
 		}
 		steps++;
 		System.out.println("Step " + steps);
-		System.out.println("Number of nodes : " + list);
+		System.out.println("Number of nodes : " + list.getSize());
 		System.out.println("Previous direction : " + list.getPreviousDirection());
-		//System.out.print("numPaths : ");
-		//System.out.println("" + list.tail.getNumPaths());
+		System.out.println("This node is " + list.current.getNode(list.getPreviousDirection()).getExplored());
+		System.out.println("current node hash : " + list.current.toString());
 		System.out.println("");
 
 	}
@@ -221,6 +231,11 @@ public class QuackSprite implements DisplayableSprite {
 		boolean east = false;
 		boolean south = false;
 		boolean west = false;
+		
+		if (list.current.getExplored() && list.getSize() > 1) {
+			//find unexplored path
+			return list.exploredIntersection();
+		}
 
 		//south
 		if (checkBarrierCollision(universe, 0, margin) == false) {
