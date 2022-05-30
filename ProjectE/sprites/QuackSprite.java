@@ -17,6 +17,7 @@ public class QuackSprite implements DisplayableSprite {
 	private double height = 25;
 	private boolean dispose = false;	
 	private int direction = 2;//0:North 1:East 2:South 3:West
+	//Direction direction = WEST;
 	public LinkedList list = new LinkedList();
 	private int margin = 15;
 	int steps = 0;
@@ -186,11 +187,12 @@ public class QuackSprite implements DisplayableSprite {
 		    
 			}
 		}
+		
 		steps++;
 		System.out.println("Step " + steps);
 		System.out.println("Number of nodes : " + list.getSize());
 		System.out.println("Previous direction : " + list.getPreviousDirection());
-		System.out.println("This node is " + list.current.getNode(list.getPreviousDirection()).getExplored());
+		System.out.println("This node is explored? " + list.current.getNode(list.getPreviousDirection()).getExplored());
 		System.out.println("current node hash : " + list.current.toString());
 		System.out.println("");
 
@@ -234,6 +236,7 @@ public class QuackSprite implements DisplayableSprite {
 		
 		if (list.current.getExplored() && list.getSize() > 1) {
 			//find unexplored path
+			list.finalStep = false;
 			return list.exploredIntersection();
 		}
 

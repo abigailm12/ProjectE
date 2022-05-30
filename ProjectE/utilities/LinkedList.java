@@ -7,6 +7,7 @@ public class LinkedList implements ListIterator {
 	Node tail = new Node(null, null, null, null, true);
 	Node current = tail;
 	public boolean backtracking = false;
+	public boolean finalStep = false;
 	//previous direction variable represents the direction from which the tail node came
 	//
 	//			  tail
@@ -53,31 +54,37 @@ public class LinkedList implements ListIterator {
 	
 	public int add(boolean north, boolean south, boolean west, boolean east) {
 		
+		if (tail == current)
+		{
+			System.out.println("in add (4 direction), tail and current are same node");
+		}
+		//TO DO!!!!!!! - change tail to current - hoepfully this doesnt mess everything up :(
+		
 		Node intersection = tail;
 		Node newNorth = null;
 		Node newSouth = null;
 		Node newWest = null;
 		Node newEast = null;
 		
-		if (north) {
+		if (north && previousDirection != 0) {
 			newNorth = new Node(null, tail, null, null, false);
 			intersection.setNorth(newNorth);
 			size++;
 		} 
 		
-		if (south) {
+		if (south && previousDirection != 2) {
 			newSouth = new Node(tail, null, null, null, false);
 			intersection.setSouth(newSouth);
 			size++;
 		}
 		
-		if (west) {
+		if (west && previousDirection != 3) {
 			newWest = new Node(null, null, null, tail, false);
 			intersection.setWest(newWest);
 			size++;
 		}
 		
-		if (east) {
+		if (east && previousDirection != 1) {
 			newEast = new Node(null, null, tail, null, false);
 			intersection.setEast(newEast);
 			size++;
@@ -155,8 +162,11 @@ public class LinkedList implements ListIterator {
 		int oppositeDirection = getOppositeDirection(direction);
 		if (current.getNode(direction).getNumPaths() > 2) {
 			backtracking = false;
-			current.getNode(direction).getNode(oppositeDirection).setNode(null, direction);
+			finalStep = true;
+			//current.getNode(direction).getNode(oppositeDirection).setNode(null, direction);
+			current.getNode(direction).setNode(null, oppositeDirection);
 			System.out.println("done backtracking");
+			//tail = current;
 			current = current.getNode(direction);
 			return direction;
 		}
@@ -170,13 +180,20 @@ public class LinkedList implements ListIterator {
 		int direction = 0;
 		System.out.println("explored intersection");
 		if (current.getNorth() != null && !current.getNorth().getExplored()) {
+			//direction = 0;
+			//this.previousDirection = 2;
 			direction = 0;
+			current = current.getNorth();
+			this.previousDirection = 2;
 		} else if (current.getEast() != null && !current.getEast().getExplored()) {
 			direction = 1;
+			//this.previousDirection = 3;
 		} else if (current.getSouth() != null && !current.getSouth().getExplored()) {
 			direction = 2;
+			//this.previousDirection = 0;
 		} else if (current.getWest() != null && !current.getWest().getExplored()) {
 			direction = 3;
+			//this.previousDirection = 1;
 		}
  		
 		return direction;
@@ -215,6 +232,39 @@ public class LinkedList implements ListIterator {
 		
 		return direction;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public int getPreviousDirection() {
 		return previousDirection;
