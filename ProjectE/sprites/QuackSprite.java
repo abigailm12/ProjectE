@@ -54,7 +54,7 @@ public class QuackSprite implements DisplayableSprite {
 		System.out.println("Number of nodes : " + list);
 		System.out.println("Previous direction : " + list.getPreviousDirection());
 		System.out.print("numPaths : ");
-		System.out.println("" + list.tail.getNumPaths());
+		System.out.println("" + list.current.getNumPaths());
 		System.out.println("");
 	}
 

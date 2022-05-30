@@ -4,8 +4,8 @@ import java.util.ListIterator;
 public class LinkedList implements ListIterator {
 
 	private int size = 1;
-	Node tail = new Node(null, null, null, null, true);
-	Node current = tail;
+//	Node tail = new Node(null, null, null, null, true);
+	Node current = new Node(null, null, null, null, true);//tail;
 	public boolean backtracking = false;
 	public boolean finalStep = false;
 	//previous direction variable represents the direction from which the tail node came
@@ -31,22 +31,22 @@ public class LinkedList implements ListIterator {
 			newNode = new Node(null, null, null, null, false);
 		} else {
 			if (previousDirection == 0) {
-				newNode = new Node(tail, null, null, null, false);
-				tail.setSouth(newNode);
+				newNode = new Node(current, null, null, null, false);
+				current.setSouth(newNode);
 			} else if (previousDirection == 1) {
-				newNode = new Node(null, null, null, tail, false);
-				tail.setWest(newNode);
+				newNode = new Node(null, null, null, current, false);
+				current.setWest(newNode);
 			} else if (previousDirection == 2) {
-				newNode = new Node(null, tail, null, null, false);
-				tail.setNorth(newNode);
+				newNode = new Node(null, current, null, null, false);
+				current.setNorth(newNode);
 			} else {
-				newNode = new Node(null, null, tail, null, false);
-				tail.setEast(newNode);
+				newNode = new Node(null, null, current, null, false);
+				current.setEast(newNode);
 			}
 		}
-		tail.setExplored(true);
+		current.setExplored(true);
 		//System.out.println("numpaths : " + tail.getNumPaths());
-		tail = newNode;
+		//current = newNode;
 
 		size++;
 
@@ -54,53 +54,52 @@ public class LinkedList implements ListIterator {
 	
 	public int add(boolean north, boolean south, boolean west, boolean east) {
 		
-		if (tail == current)
-		{
-			System.out.println("in add (4 direction), tail and current are same node");
-		}
-		//TO DO!!!!!!! - change tail to current - hoepfully this doesnt mess everything up :(
+//		if (tail == current)
+//		{
+//			System.out.println("in add (4 direction), tail and current are same node");
+//		}
 		
-		Node intersection = tail;
+		Node intersection = current;
 		Node newNorth = null;
 		Node newSouth = null;
 		Node newWest = null;
 		Node newEast = null;
 		
 		if (north && previousDirection != 0) {
-			newNorth = new Node(null, tail, null, null, false);
+			newNorth = new Node(null, current, null, null, false);
 			intersection.setNorth(newNorth);
 			size++;
 		} 
 		
 		if (south && previousDirection != 2) {
-			newSouth = new Node(tail, null, null, null, false);
+			newSouth = new Node(current, null, null, null, false);
 			intersection.setSouth(newSouth);
 			size++;
 		}
 		
 		if (west && previousDirection != 3) {
-			newWest = new Node(null, null, null, tail, false);
+			newWest = new Node(null, null, null, current, false);
 			intersection.setWest(newWest);
 			size++;
 		}
 		
 		if (east && previousDirection != 1) {
-			newEast = new Node(null, null, tail, null, false);
+			newEast = new Node(null, null, current, null, false);
 			intersection.setEast(newEast);
 			size++;
 		}
 		
-		tail.setExplored(true);
+		current.setExplored(true);
 		int direction = nextStep();
 		
 		if (direction == 0) {
-			tail = newNorth;
+			current = newNorth;
 		} else if (direction == 2) {
-			tail = newSouth;
+			current = newSouth;
 		} else if (direction == 3) {
-			tail = newWest;
+			current = newWest;
 		} else {
-			tail = newEast;
+			current = newEast;
 		}
 		
 		return direction;
@@ -163,11 +162,10 @@ public class LinkedList implements ListIterator {
 		if (current.getNode(direction).getNumPaths() > 2) {
 			backtracking = false;
 			finalStep = true;
-			//current.getNode(direction).getNode(oppositeDirection).setNode(null, direction);
 			current.getNode(direction).setNode(null, oppositeDirection);
 			System.out.println("done backtracking");
-			//tail = current;
 			current = current.getNode(direction);
+//			tail = current;
 			return direction;
 		}
 		current = current.getNode(direction);		
