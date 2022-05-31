@@ -35,8 +35,8 @@ public class ShellUniverse implements Universe {
 		this.setYCenter(0);
 		player1 = new QuackSprite(-345, -243);
 		finishLine = new FinishLine(340, 265);
-		sprites.add(player1);
 		sprites.add(finishLine);
+		sprites.add(player1);
 			
 	}
 
