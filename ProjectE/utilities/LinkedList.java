@@ -133,25 +133,29 @@ public class LinkedList implements ListIterator {
 	}
 	
 	public int backtrack() {
-		int direction = 0;
+//		int direction = 0;
 		//goes in the only direction he can while following nodes UNTIL he reaches a node that has 3 paths
 		//iterate through the list starting at tail checking the nullness of each link and going to the not null one
 		
-		direction = previousDirection;
+		int direction = previousDirection;
 
 		if (current.getNode(direction) == null) {
 			System.out.println("found a turn");
 			if (current.getNorth() != null && direction != 2) {
 				direction = 0;
+				previousDirection = 0;
 				current = current.getNorth();
 			} else if (current.getEast() != null && direction != 3) {
 				direction = 1;
+				previousDirection = 1;
 				current = current.getEast();
 			} else if (current.getSouth() != null && direction != 0) {
 				direction = 2;
+				previousDirection = 2;
 				current = current.getSouth();
 			} else if (current.getWest() != null && direction != 1) {
 				direction = 3;
+				previousDirection = 3;
 				current = current.getWest();
 			}
 			
@@ -184,14 +188,23 @@ public class LinkedList implements ListIterator {
 			current = current.getNorth();
 			this.previousDirection = 2;
 		} else if (current.getEast() != null && !current.getEast().getExplored()) {
-			direction = 1;
+			//direction = 1;
 			//this.previousDirection = 3;
+			direction = 1;
+			current = current.getEast();
+			this.previousDirection = 3;
 		} else if (current.getSouth() != null && !current.getSouth().getExplored()) {
-			direction = 2;
+			//direction = 2;
 			//this.previousDirection = 0;
+			direction = 2;
+			current = current.getSouth();
+			this.previousDirection = 0;
 		} else if (current.getWest() != null && !current.getWest().getExplored()) {
-			direction = 3;
+			//direction = 3;
 			//this.previousDirection = 1;
+			direction = 3;
+			current = current.getWest();
+			this.previousDirection = 1;
 		}
  		
 		return direction;
