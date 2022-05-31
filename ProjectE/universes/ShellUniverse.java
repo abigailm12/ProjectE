@@ -4,6 +4,7 @@ public class ShellUniverse implements Universe {
 
 	private boolean complete = false;	
 	private DisplayableSprite player1 = null;
+	private DisplayableSprite finishLine = null;
 	private Background background = null;	
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
@@ -33,7 +34,9 @@ public class ShellUniverse implements Universe {
 		this.setXCenter(0);
 		this.setYCenter(0);
 		player1 = new QuackSprite(-345, -243);
+		finishLine = new FinishLine(340, 265);
 		sprites.add(player1);
+		sprites.add(finishLine);
 			
 	}
 
