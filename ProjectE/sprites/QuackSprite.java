@@ -192,7 +192,6 @@ public class QuackSprite implements DisplayableSprite {
 		System.out.println("Step " + steps);
 		System.out.println("Number of nodes : " + list.getSize());
 		System.out.println("Previous direction : " + list.getPreviousDirection());
-		System.out.println("This node is explored? " + list.current.getNode(list.getPreviousDirection()).getExplored());
 		System.out.println("current node hash : " + list.current.toString());
 		System.out.println("");
 
