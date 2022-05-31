@@ -195,6 +195,10 @@ public class QuackSprite implements DisplayableSprite {
 		System.out.println("This node is explored? " + list.current.getNode(list.getPreviousDirection()).getExplored());
 		System.out.println("current node hash : " + list.current.toString());
 		System.out.println("");
+		
+		if (checkFinishLineCollision(universe)) {
+			System.out.println("Finished!");
+		}
 
 	}
 
@@ -215,6 +219,24 @@ public class QuackSprite implements DisplayableSprite {
 			}
 		}
 		return colliding;		
+	}
+	
+	public boolean checkFinishLineCollision(Universe sprites) {
+		boolean colliding = false;
+
+		for (DisplayableSprite sprite : sprites.getSprites()) {
+
+			if (sprite instanceof FinishLine) {
+				if (CollisionDetection.overlaps(this.getMinX(), this.getMinY(), 
+						this.getMaxX(), this.getMaxY(), 
+						sprite.getMinX(),sprite.getMinY(), 
+						sprite.getMaxX(), sprite.getMaxY())) {
+					colliding = true;
+					break;
+				}
+			}
+		}
+		return colliding;	
 	}
 
 
