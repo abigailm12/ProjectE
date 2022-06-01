@@ -221,6 +221,7 @@ public class QuackSprite implements DisplayableSprite {
 			System.out.println("Number of nodes : " + list.getSize());
 			System.out.println("Previous direction : " + list.getPreviousDirection());
 			System.out.println("current node hash : " + list.current.toString());
+			System.out.println("current node coordinates : (" + list.current.getX() + ", " + list.current.getY() + ")");
 			System.out.println("");
 			
 			if (checkFinishLineCollision(universe)) {
