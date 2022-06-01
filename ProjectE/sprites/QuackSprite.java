@@ -7,8 +7,8 @@ import javax.imageio.ImageIO;
 public class QuackSprite implements DisplayableSprite {
 
 	private static final int FRAMES = 7;
-	private static int framesPerSecond = 20;
-	private static int millisecondsPerFrame = 1000 / framesPerSecond;
+	private static int framesPerSecond = 25;
+	private static int millisecondsPerFrame = 900 / framesPerSecond;
 	private static Image[] northImage = null;
 	private static Image[] eastImage = null;
 	private static Image[] westImage = null;
@@ -43,24 +43,25 @@ public class QuackSprite implements DisplayableSprite {
 		this.centerY = centerY;
 		
 		if (northImage == null) {
+			System.out.println("populated image arrays");
 			try {				
 				northImage = new Image[FRAMES];
-				for (int i = 1; i < FRAMES; i++) {
+				for (int i = 0; i < FRAMES; i++) {
 					String path = String.format("res/quackNorth/north-%d.png", i);
 					northImage[i] = ImageIO.read(new File(path));
 				}
 				eastImage = new Image[FRAMES];
-				for (int i = 1; i < FRAMES; i++) {
+				for (int i = 0; i < FRAMES; i++) {
 					String path = String.format("res/quackEast/east-%d.png", i);
 					eastImage[i] = ImageIO.read(new File(path));
 				}
 				southImage = new Image[FRAMES];
-				for (int i = 1; i < FRAMES; i++) {
+				for (int i = 0; i < FRAMES; i++) {
 					String path = String.format("res/quackSouth/south-%d.png", i);
 					southImage[i] = ImageIO.read(new File(path));
 				}
 				westImage = new Image[FRAMES];
-				for (int i = 1; i < FRAMES; i++) {
+				for (int i = 0; i < FRAMES; i++) {
 					String path = String.format("res/quackWest/west-%d.png", i);
 					westImage[i] = ImageIO.read(new File(path));
 				}
