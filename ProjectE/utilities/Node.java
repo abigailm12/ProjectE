@@ -4,15 +4,19 @@ public class Node
 	protected Node south;
 	protected Node west;
 	protected Node east;
+	protected int xCoordinate;
+	protected int yCoordinate;
 	protected boolean explored;
 
-	public Node(Node north, Node south, Node west, Node east, boolean explored)
+	public Node(Node north, Node south, Node west, Node east, boolean explored, int x, int y)
 	{
 		this.north = north;
 		this.south = south;
 		this.west = west;
 		this.east = east;
 		this.explored = explored;
+		this.xCoordinate = x;
+		this.yCoordinate = y;
 	}
 	
 	public Node getNorth() {
@@ -29,6 +33,14 @@ public class Node
 	
 	public Node getWest() {
 		return west;
+	}
+	
+	public int getX() {
+		return xCoordinate;
+	}
+	
+	public int getY() {
+		return yCoordinate;
 	}
 	
 	public Node getNode(int direction) {
@@ -78,6 +90,15 @@ public class Node
 	public void setExplored(boolean b) {
 		explored = b;
 	}
+	
+	public void setX(int x) {
+		xCoordinate = x;
+	}
+	
+	public void setY(int y) {
+		yCoordinate = y;
+	}
+	
 	
 	//returns number of none null paths originating from current node
 	public int getNumPaths() {
