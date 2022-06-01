@@ -6,15 +6,18 @@ import javax.imageio.ImageIO;
 
 public class QuackSprite implements DisplayableSprite {
 
-	private static Image northImage;
-	private static Image eastImage;
-	private static Image westImage;
-	private static Image southImage;
+	private static final int FRAMES = 7;
+	private static int framesPerSecond = 20;
+	private static int millisecondsPerFrame = 1000 / framesPerSecond;
+	private static Image[] northImage = null;
+	private static Image[] eastImage = null;
+	private static Image[] westImage = null;
+	private static Image[] southImage = null;
 	private long elapsedTime = 0;
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 25;
-	private double height = 25;
+	private double width = 30;
+	private double height = 30;
 	private boolean dispose = false;
 	private boolean done = false;
 	private int direction = 2;//0:North 1:East 2:South 3:West
@@ -38,17 +41,33 @@ public class QuackSprite implements DisplayableSprite {
 
 		this.centerX = centerX;
 		this.centerY = centerY;
-
+		
 		if (northImage == null) {
-			try {
-				northImage = ImageIO.read(new File("res/quack1.0NORTH.png"));
-				eastImage = ImageIO.read(new File("res/quack1.0EAST.png"));
-				southImage = ImageIO.read(new File("res/quack1.0SOUTH.png"));
-				westImage = ImageIO.read(new File("res/quack1.0WEST.png"));
+			try {				
+				northImage = new Image[FRAMES];
+				for (int i = 1; i < FRAMES; i++) {
+					String path = String.format("res/quackNorth/north-%d.png", i);
+					northImage[i] = ImageIO.read(new File(path));
+				}
+				eastImage = new Image[FRAMES];
+				for (int i = 1; i < FRAMES; i++) {
+					String path = String.format("res/quackEast/east-%d.png", i);
+					eastImage[i] = ImageIO.read(new File(path));
+				}
+				southImage = new Image[FRAMES];
+				for (int i = 1; i < FRAMES; i++) {
+					String path = String.format("res/quackSouth/south-%d.png", i);
+					southImage[i] = ImageIO.read(new File(path));
+				}
+				westImage = new Image[FRAMES];
+				for (int i = 1; i < FRAMES; i++) {
+					String path = String.format("res/quackWest/west-%d.png", i);
+					westImage[i] = ImageIO.read(new File(path));
+				}
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
-			}		
+			}	
 		}
 		
 		System.out.println("Step 0");
@@ -60,15 +79,22 @@ public class QuackSprite implements DisplayableSprite {
 	}
 
 	public Image getImage() {
+		
+		Image output = null;
+		long frame = elapsedTime / millisecondsPerFrame;
+		int index = (int) frame % FRAMES;
+		
 		if (direction == 0) {
-			return northImage;
+			output = northImage[index];
 		} else if (direction == 1) {
-			return eastImage;
+			output = eastImage[index];
 		} else if (direction == 2) {
-			return southImage;
+			output = southImage[index];
 		} else {
-			return westImage;
+			output = westImage[index];
 		}
+
+		return output;
 	}
 
 	//DISPLAYABLE
