@@ -40,7 +40,7 @@ public class AnimationFrame extends JFrame {
 	private boolean isPaused = false;
 
 	private KeyboardInput keyboard = new KeyboardInput();
-	private Universe universe = null;
+	protected Universe universe = null;
 
 	//local (and direct references to various objects in universe ... should reduce lag by avoiding dynamic lookup
 	private Animation animation = null;
@@ -147,7 +147,7 @@ public class AnimationFrame extends JFrame {
 		while (stop == false && universe != null) {
 
 			sprites = universe.getSprites();
-			player1 = universe.getPlayer1();
+			setPlayer1(universe.getPlayer1());
 			backgrounds = universe.getBackgrounds();
 			centreOnPlayer = universe.centerOnPlayer();
 			this.scale = universe.getScale();
@@ -272,9 +272,9 @@ public class AnimationFrame extends JFrame {
 				return;
 			}
 
-			if (player1 != null && centreOnPlayer) {
-				logicalCenterX = player1.getCenterX();
-				logicalCenterY = player1.getCenterY();     
+			if (getPlayer1() != null && centreOnPlayer) {
+				logicalCenterX = getPlayer1().getCenterX();
+				logicalCenterY = getPlayer1().getCenterY();     
 			}
 
 			if (backgrounds != null) {
@@ -385,5 +385,13 @@ public class AnimationFrame extends JFrame {
 		System.out.println("windowClosing()");
 		stop = true;
 		dispose();	
+	}
+	
+	public DisplayableSprite getPlayer1() {
+		return player1;
+	}
+
+	public void setPlayer1(DisplayableSprite player1) {
+		this.player1 = player1;
 	}
 }

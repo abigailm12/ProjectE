@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class ShellUniverse implements Universe {
 
 	private boolean complete = false;	
-	private DisplayableSprite player1 = null;
+	public DisplayableSprite quack = null;
 	private DisplayableSprite finishLine = null;
 	private Background background = null;	
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
@@ -33,10 +33,10 @@ public class ShellUniverse implements Universe {
 
 		this.setXCenter(0);
 		this.setYCenter(0);
-		player1 = new QuackSprite(-345, -243);
+		quack = new QuackSprite(-345, -243);
 		finishLine = new FinishLine(340, 265);
 		sprites.add(finishLine);
-		sprites.add(player1);
+		sprites.add(quack);
 			
 	}
 
@@ -71,7 +71,7 @@ public class ShellUniverse implements Universe {
 	}	
 
 	public DisplayableSprite getPlayer1() {
-		return player1;
+		return quack;
 	}
 
 	public ArrayList<DisplayableSprite> getSprites() {

@@ -4,8 +4,8 @@ import java.util.ListIterator;
 public class LinkedList implements ListIterator {
 
 	private int size = 1;
-//	Node tail = new Node(null, null, null, null, true);
-	Node current = new Node(null, null, null, null, true);//tail;
+	//	Node tail = new Node(null, null, null, null, true);
+	Node current = new Node(null, null, null, null, true,-345, -243);//tail;
 	public boolean backtracking = false;
 	public boolean finalStep = false;
 	//previous direction variable represents the direction from which the tail node came
@@ -16,31 +16,34 @@ public class LinkedList implements ListIterator {
 	//			newNode
 	//
 	private int previousDirection = 3; //0:North 1:East 2:South 3:West
-	
+
 	public ListIterator listIterator() {
-//		this.pointer = 0;
+		//		this.pointer = 0;
 		return this;
 	}
-	
+
 	public void add(int previousDirection) {
-		
+
+		int quackX = (int) Main.frame.universe.getPlayer1().getCenterX();
+		int quackY = (int) Main.frame.universe.getPlayer1().getCenterY();
+
 		//public Node(Node north, Node south, Node west, Node east, boolean explored)
 		Node newNode;
-		
+
 		if (size == 0) {
-			newNode = new Node(null, null, null, null, false);
+			newNode = new Node(null, null, null, null, false,-345, -243);
 		} else {
 			if (previousDirection == 0) {
-				newNode = new Node(current, null, null, null, false);
+				newNode = new Node(current, null, null, null, false, quackX, quackY - 40);
 				current.setSouth(newNode);
 			} else if (previousDirection == 1) {
-				newNode = new Node(null, null, null, current, false);
+				newNode = new Node(null, null, null, current, false, quackX - 40, quackY);
 				current.setWest(newNode);
 			} else if (previousDirection == 2) {
-				newNode = new Node(null, current, null, null, false);
+				newNode = new Node(null, current, null, null, false, quackX, quackY + 40);
 				current.setNorth(newNode);
 			} else {
-				newNode = new Node(null, null, current, null, false);
+				newNode = new Node(null, null, current, null, false, quackX + 40, quackY);
 				current.setEast(newNode);
 			}
 		}
@@ -51,47 +54,50 @@ public class LinkedList implements ListIterator {
 		size++;
 
 	}
-	
+
 	public int add(boolean north, boolean south, boolean west, boolean east) {
-		
-//		if (tail == current)
-//		{
-//			System.out.println("in add (4 direction), tail and current are same node");
-//		}
-		
+
+		//		if (tail == current)
+		//		{
+		//			System.out.println("in add (4 direction), tail and current are same node");
+		//		}
+
 		Node intersection = current;
 		Node newNorth = null;
 		Node newSouth = null;
 		Node newWest = null;
 		Node newEast = null;
 		
+		int quackX = (int) Main.frame.universe.getPlayer1().getCenterX();
+		int quackY = (int) Main.frame.universe.getPlayer1().getCenterY();
+
 		if (north && previousDirection != 0) {
-			newNorth = new Node(null, current, null, null, false);
+			newNorth = new Node(null, current, null, null, false, quackX, quackY - 40);
 			intersection.setNorth(newNorth);
 			size++;
 		} 
-		
+
 		if (south && previousDirection != 2) {
-			newSouth = new Node(current, null, null, null, false);
+			newSouth = new Node(current, null, null, null, false, quackX - 40, quackY);
 			intersection.setSouth(newSouth);
 			size++;
 		}
-		
+
 		if (west && previousDirection != 3) {
-			newWest = new Node(null, null, null, current, false);
+			newWest = new Node(null, null, null, current, false, quackX, quackY + 40);
 			intersection.setWest(newWest);
 			size++;
 		}
-		
+
 		if (east && previousDirection != 1) {
-			newEast = new Node(null, null, current, null, false);
+			newEast = new Node(null, null, current, null, false, quackX + 40, quackY);
 			intersection.setEast(newEast);
 			size++;
 		}
-		
+
 		current.setExplored(true);
 		int direction = nextStep();
-		
+
 		if (direction == 0) {
 			current = newNorth;
 		} else if (direction == 2) {
@@ -101,11 +107,11 @@ public class LinkedList implements ListIterator {
 		} else {
 			current = newEast;
 		}
-		
+
 		return direction;
-		
+
 	}
-	
+
 	public int getOppositeDirection(int d) {
 		if (d == 0) {
 			return 2;
@@ -116,27 +122,27 @@ public class LinkedList implements ListIterator {
 		} else if (d == 3) {
 			return 1;
 		}
-		
+
 		return -1;
 	}
-	
+
 	public void breakOff(Node node) {
-		
+
 		//get rid of all nodes after a given index
-		
+
 		//set the previous direction to null
 		//set tail to be node(index)
-		
+
 		//size = index - 1	
-			
-	
+
+
 	}
-	
+
 	public int backtrack() {
-//		int direction = 0;
+		//		int direction = 0;
 		//goes in the only direction he can while following nodes UNTIL he reaches a node that has 3 paths
 		//iterate through the list starting at tail checking the nullness of each link and going to the not null one
-		
+
 		int direction = previousDirection;
 
 		if (current.getNode(direction) == null) {
@@ -158,10 +164,10 @@ public class LinkedList implements ListIterator {
 				previousDirection = 3;
 				current = current.getWest();
 			}
-			
+
 			return direction;
 		}
-		
+
 		int oppositeDirection = getOppositeDirection(direction);
 		if (current.getNode(direction).getNumPaths() > 2) {
 			backtracking = false;
@@ -169,16 +175,16 @@ public class LinkedList implements ListIterator {
 			current.getNode(direction).setNode(null, oppositeDirection);
 			System.out.println("done backtracking");
 			current = current.getNode(direction);
-//			tail = current;
+			//			tail = current;
 			return direction;
 		}
 		current = current.getNode(direction);		
 		return direction;
-			
+
 	}
-	
+
 	public int exploredIntersection() {
-		
+
 		int direction = 0;
 		System.out.println("explored intersection");
 		if (current.getNorth() != null && !current.getNorth().getExplored()) {
@@ -206,32 +212,32 @@ public class LinkedList implements ListIterator {
 			current = current.getWest();
 			this.previousDirection = 1;
 		}
- 		
+
 		return direction;
 
 	}
-	
+
 	public int nextStep() {
 		//Quack calls this method to determine which direction to go next
 		int direction = 0;
-		
+
 		//if (current.getEast() != null) {
 		if (current.getEast() != null && current.getEast().getExplored() == false) {
 			direction = 1;
 			current = current.getEast();
 			this.previousDirection = 3;
 		} else if (current.getSouth() != null && current.getSouth().getExplored() == false) {
-		//} else if (current.getSouth() != null ) {
+			//} else if (current.getSouth() != null ) {
 			direction = 2;
 			current = current.getSouth();
 			this.previousDirection = 0;
 		} else if (current.getWest() != null && current.getWest().getExplored() == false) {
-		//} else if (current.getWest() != null ) {
+			//} else if (current.getWest() != null ) {
 			direction = 3;
 			current = current.getWest();
 			this.previousDirection = 1;
 		} else if (current.getNorth() != null && current.getNorth().getExplored() == false) {
-		//} else if (current.getNorth() != null ) {
+			//} else if (current.getNorth() != null ) {
 			direction = 0;
 			current = current.getNorth();
 			this.previousDirection = 2;
@@ -240,51 +246,51 @@ public class LinkedList implements ListIterator {
 			System.out.println("backtracking");
 			direction = -1;
 		}
-		
+
 		return direction;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public int getPreviousDirection() {
 		return previousDirection;
 	}
-	
+
 	public int getSize() {
 		return size;
 	}
-	
+
 	@Override
 	public boolean hasNext() {
 		// TODO Auto-generated method stub
@@ -324,19 +330,19 @@ public class LinkedList implements ListIterator {
 	@Override
 	public void remove() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void set(Object e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void add(Object e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }
