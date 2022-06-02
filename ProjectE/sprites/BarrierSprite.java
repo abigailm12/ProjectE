@@ -32,6 +32,16 @@ public class BarrierSprite implements DisplayableSprite {
 		
 	}
 	
+	public BarrierSprite(double minX, double minY, double maxX, double maxY, Image image) {
+		
+		this.image = image;	
+		this.centerX = (minX + maxX) / 2;
+		this.centerY = (minY + maxY) / 2;
+		this.width = maxX - minX;
+		this.height = maxY - minY;
+		
+	}
+	
 	public void solve() {}
 	
 
