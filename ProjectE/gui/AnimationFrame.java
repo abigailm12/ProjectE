@@ -111,16 +111,16 @@ public class AnimationFrame extends JFrame {
 		lblTop.setForeground(Color.WHITE);
 		lblTop.setFont(new Font("Consolas", Font.BOLD, 20));
 		lblTop.setBounds(16, 22, SCREEN_WIDTH - 16, 30);
-		getContentPane().add(lblTop);
-		getContentPane().setComponentZOrder(lblTop, 0);
+		//getContentPane().add(lblTop);
+		//getContentPane().setComponentZOrder(lblTop, 0);
 
 		lblBottom = new JLabel("Status");
 		lblBottom.setForeground(Color.WHITE);
 		lblBottom.setFont(new Font("Consolas", Font.BOLD, 30));
 		lblBottom.setBounds(16, SCREEN_HEIGHT - 30 - 16, SCREEN_WIDTH - 16, 36);
 		lblBottom.setHorizontalAlignment(SwingConstants.CENTER);
-		getContentPane().add(lblBottom);
-		getContentPane().setComponentZOrder(lblBottom, 0);
+		//getContentPane().add(lblBottom);
+		//getContentPane().setComponentZOrder(lblBottom, 0);
 
 	}
 
