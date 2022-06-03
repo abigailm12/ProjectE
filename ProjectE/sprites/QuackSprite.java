@@ -8,7 +8,7 @@ public class QuackSprite implements DisplayableSprite {
 
 	private static final int FRAMES = 7;
 	private static int framesPerSecond = 25;
-	private static int millisecondsPerFrame = 900 / framesPerSecond;
+	private static int millisecondsPerFrame = 2000 / framesPerSecond;
 	private static Image[] northImage = null;
 	private static Image[] eastImage = null;
 	private static Image[] westImage = null;
@@ -25,9 +25,11 @@ public class QuackSprite implements DisplayableSprite {
 	public LinkedList list = new LinkedList();
 	private int margin = 15;
 	int steps = 0;
+	private boolean moving = false;
+	private DisplayableSprite currentPath = null;
 	
 
-	private final double VELOCITY = 0.0025;
+	private final double VELOCITY = 1.5;
 
 	public QuackSprite(double centerX, double centerY, double height, double width) {
 		this(centerX, centerY);
@@ -142,95 +144,109 @@ public class QuackSprite implements DisplayableSprite {
 	}
 
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-
+	
+		elapsedTime += actual_delta_time;
 		if (!done) {
-			elapsedTime += actual_delta_time;
-			
-			if (list.backtracking) {
-				direction = list.backtrack();
-			} else {
-				direction = lookAround(universe);
-			}
-			
-			if (direction == -1) {
-				direction = list.backtrack();
-			}
 		
-			//direction = list.nextStep();
-			
-			double deltaX = 0;
-			double deltaY = 0;
-			double velocityX = 0;
-			double velocityY = 0;
-			double marginX = 0;
-			double marginY = 0;
-			
-			DisplayableSprite currentPath = null;
-			
-			// finds the current path sprite quack is in
-			for (DisplayableSprite sprite : universe.getSprites()) {
-	
-				if (sprite instanceof PathSprite) {
-					if (CollisionDetection.inside(this, sprite, 0, 0)) {
-						currentPath = sprite;
-						break;
-					}
+			if (moving) {
+				move(direction, currentPath, universe);
+			} else {
+				direction = getDirection(universe);
+				currentPath = getCurrentPath(universe);
+				System.out.println(direction + " " + currentPath);
+				steps++;
+				System.out.println("Step " + steps);
+				System.out.println("Number of nodes : " + list.getSize());
+				System.out.println("Previous direction : " + list.getPreviousDirection());
+				System.out.println("current node hash : " + list.current.toString());
+				System.out.println("current node coordinates : (" + list.current.getX() + ", " + list.current.getY() + ")");
+				System.out.println("");
+			}
+				
+				if (checkFinishLineCollision(universe)) {
+					System.out.println("Finished!");
+					done = true;
 				}
-			}
-			
-			//MOVE EAST
-			if (direction == 1) {
-				velocityX = VELOCITY;
-				//marginX = -5;
-			}
-			//MOVE SOUTH
-			if (direction == 2) {
-				velocityY = VELOCITY;
-				//marginY = -5;
-			}
-			//MOVE NORTH
-			if (direction == 0) {
-				velocityY = -VELOCITY;
-				//marginY = 5;
-			}
-			//MOVE WEST
-			if (direction == 3) {
-				velocityX = -VELOCITY;
-				//marginX = 5;
-			}
-			
-			// moves quack in given direction until he is no longer overlapping with currentPath
-			if (currentPath != null) {
-				while (CollisionDetection.overlaps((DisplayableSprite) this, currentPath, marginX, marginY)) {
-					
-					deltaX = MappedBackground.TILE_WIDTH * velocityX * 0.005;
-					deltaY = MappedBackground.TILE_HEIGHT * velocityY * 0.005;
+		}
+	}
 	
-					if (checkBarrierCollision(universe, deltaX, 0) == false) {
-						centerX += deltaX;
-					}
-	
-					if (checkBarrierCollision(universe, 0, deltaY) == false) {
-						centerY += deltaY;
-					}
-			    
+	public DisplayableSprite getCurrentPath(Universe universe) {
+		
+		DisplayableSprite currentPath = null;
+		
+		// finds the current path sprite quack is in
+		for (DisplayableSprite sprite : universe.getSprites()) {
+
+			if (sprite instanceof PathSprite) {
+				if (CollisionDetection.inside(this, sprite, 0, 0)) {
+					currentPath = sprite;
+					break;
 				}
-			}
-			
-			steps++;
-			System.out.println("Step " + steps);
-			System.out.println("Number of nodes : " + list.getSize());
-			System.out.println("Previous direction : " + list.getPreviousDirection());
-			System.out.println("current node hash : " + list.current.toString());
-			System.out.println("current node coordinates : (" + list.current.getX() + ", " + list.current.getY() + ")");
-			System.out.println("");
-			
-			if (checkFinishLineCollision(universe)) {
-				System.out.println("Finished!");
-				done = true;
 			}
 		}
+		
+		return currentPath;
+	}
+	
+	public int getDirection(Universe universe) {
+		if (list.backtracking) {
+			direction = list.backtrack();
+		} else {
+			direction = lookAround(universe);
+		}
+		
+		if (direction == -1) {
+			direction = list.backtrack();
+		}
+		
+		moving = true;
+		return direction;
+	}
+	
+	public void move(int direction, DisplayableSprite currentPath, Universe universe) {
+		double deltaX = 0;
+		double deltaY = 0;
+		double velocityX = 0;
+		double velocityY = 0;
+		double marginX = 0;
+		double marginY = 0;
+		
+		//MOVE EAST
+		if (direction == 1) {
+			velocityX = VELOCITY;
+		}
+		//MOVE SOUTH
+		if (direction == 2) {
+			velocityY = VELOCITY;
+		}
+		//MOVE NORTH
+		if (direction == 0) {
+			velocityY = -VELOCITY;
+		}
+		//MOVE WEST
+		if (direction == 3) {
+			velocityX = -VELOCITY;
+		}
+		
+		// moves quack in given direction until he is no longer overlapping with currentPath
+		if (currentPath != null) {
+			if (CollisionDetection.overlaps((DisplayableSprite) this, currentPath, marginX, marginY)) {
+				
+				deltaX = velocityX;
+				deltaY = velocityY;	
 
+				if (checkBarrierCollision(universe, deltaX, 0) == false) {
+					centerX += deltaX;
+				}
+
+				if (checkBarrierCollision(universe, 0, deltaY) == false) {
+					centerY += deltaY;
+				}
+			    
+			} else {
+				moving = false;
+			}
+		}
 	}
 
 	public boolean checkBarrierCollision(Universe sprites, double deltaX, double deltaY) {
