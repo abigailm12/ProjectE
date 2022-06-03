@@ -96,7 +96,7 @@ public class PondMappedBackground implements Background {
 		} else if (map[col][row] == 0) {
 			image = grass;
 		} else if (map[col][row] == 1) {
-			int var = (int) (Math.random()*3 + 1);
+			int var = (int) (Math.random() * 3 + 1);
 			if (var == 1) {
 				image = waterAlternate1;
 			} else if (var == 2) {
