@@ -22,17 +22,21 @@ public class ShellUniverse implements Universe {
 		//backgrounds.add(background);
 		
 		//pond background
-		background = new PondMappedBackground();
+//		background = new PondMappedBackground();
+//		backgrounds.add(background);
+		
+		//bath background
+		background = new BathMappedBackgroundA();
 		backgrounds.add(background);
 		
 		//barrier sprites
-		ArrayList<DisplayableSprite> barriers = ((PondMappedBackground)background).getBarriers();
-		((PondMappedBackground) background).getBarriers();
+		ArrayList<DisplayableSprite> barriers = ((BathMappedBackgroundA)background).getBarriers();
+		((BathMappedBackgroundA) background).getBarriers();
 		sprites.addAll(barriers);
 		
 		//path sprites
-		ArrayList<DisplayableSprite> paths = ((PondMappedBackground)background).getPaths();
-		((PondMappedBackground) background).getPaths();
+		ArrayList<DisplayableSprite> paths = ((BathMappedBackgroundA)background).getPaths();
+		((BathMappedBackgroundA) background).getPaths();
 		sprites.addAll(paths);
 
 		this.setXCenter(0);

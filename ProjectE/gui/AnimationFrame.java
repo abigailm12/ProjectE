@@ -104,8 +104,8 @@ public class AnimationFrame extends JFrame {
 		btnPauseRun.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnPauseRun.setBounds(SCREEN_WIDTH - 64, 20, 48, 32);
 		btnPauseRun.setFocusable(false);
-		getContentPane().add(btnPauseRun);
-		getContentPane().setComponentZOrder(btnPauseRun, 0);
+		//getContentPane().add(btnPauseRun);
+		//getContentPane().setComponentZOrder(btnPauseRun, 0);
 
 		lblTop = new JLabel("Time: ");
 		lblTop.setForeground(Color.WHITE);

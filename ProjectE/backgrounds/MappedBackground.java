@@ -84,9 +84,8 @@ public class MappedBackground implements Background {
 		maxRows = map.length - 1;
 		maxCols = map[0].length - 1;
 	}
-
-	@Override
-	public Tile getTile(int col, int row) {
+	
+	public Image getImage(int col, int row) {
 		Image image = null;
 		
 		if (row < 0 || row > maxRows || col < 0 || col > maxCols) {
@@ -127,6 +126,14 @@ public class MappedBackground implements Background {
 		{
 			image = null;
 		}
+		
+		
+		return image;
+	}
+
+	@Override
+	public Tile getTile(int col, int row) {
+		Image image = getImage(col, row);
 		
 		int x = (col * TILE_WIDTH) - (AnimationFrame.SCREEN_WIDTH / 2);
 		int y = (row * TILE_HEIGHT) - (AnimationFrame.SCREEN_HEIGHT / 2);
@@ -195,7 +202,7 @@ public class MappedBackground implements Background {
 		for (int row = 0; row < map[0].length; row++) {
 			for (int col = 0; col < map.length; col++) {
 				if (map[col][row] != 0) {
-					paths.add(new PathSprite((row * TILE_WIDTH) - (AnimationFrame.SCREEN_WIDTH / 2), (col * TILE_HEIGHT) - (AnimationFrame.SCREEN_HEIGHT / 2), ((row + 1) * TILE_WIDTH) - (AnimationFrame.SCREEN_WIDTH / 2), ((col + 1) * TILE_HEIGHT) - (AnimationFrame.SCREEN_HEIGHT / 2), map[col][row]));
+					paths.add(new PathSprite((row * TILE_WIDTH) - (AnimationFrame.SCREEN_WIDTH / 2), (col * TILE_HEIGHT) - (AnimationFrame.SCREEN_HEIGHT / 2), ((row + 1) * TILE_WIDTH) - (AnimationFrame.SCREEN_WIDTH / 2), ((col + 1) * TILE_HEIGHT) - (AnimationFrame.SCREEN_HEIGHT / 2), getImage(col, row)));
 				}
 			}
 		}
