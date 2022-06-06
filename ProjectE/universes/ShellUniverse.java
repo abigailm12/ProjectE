@@ -8,7 +8,7 @@ public class ShellUniverse implements Universe {
 	private Background background = null;	
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
-	private int level = 0;
+	public static int level = 0;
 
 	public ShellUniverse () {
 		

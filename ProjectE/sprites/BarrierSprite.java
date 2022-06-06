@@ -60,7 +60,7 @@ public class BarrierSprite implements DisplayableSprite {
 	//DISPLAYABLE
 	
 	public boolean getVisible() {
-		return this.visible;
+		return false;
 	}
 	
 	public double getMinX() {
