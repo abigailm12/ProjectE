@@ -4,7 +4,7 @@ import java.util.ListIterator;
 public class LinkedList {
 
 	private int size = 1;
-	Node current = new Node(null, null, null, null, true,-345, -243);
+	Node current = new Node(null, null, null, null, true, -345, -243);
 	public boolean backtracking = false;
 	public boolean finalStep = false;
 	//previous direction variable represents the direction from which the tail node came
@@ -228,6 +228,14 @@ public class LinkedList {
 
 	public int getSize() {
 		return size;
+	}
+	
+	public void reset() {
+		size = 1;
+		current = new Node(null, null, null, null, true, -345, -243);
+		backtracking = false;
+		finalStep = false;
+		previousDirection = 3;
 	}
 
 }
