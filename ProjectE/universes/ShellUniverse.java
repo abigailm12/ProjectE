@@ -115,6 +115,10 @@ public class ShellUniverse implements Universe {
 	private void updateBackground() {
 		backgrounds = new ArrayList<Background>();
 		
+		quack.setStatus(false);
+		quack = new QuackSprite(-345, -243);
+		sprites.add(quack);
+		
 		//reset :
 		//barrier sprites
 		//ArrayList<DisplayableSprite> barriers = ((BathMappedBackgroundA)background).getBarriers();
@@ -131,7 +135,7 @@ public class ShellUniverse implements Universe {
 		//update visual
 		
 		if (level == 1) {
-
+			
 		} else if (level == 2) {
 
 		} else if (level == 3) {
