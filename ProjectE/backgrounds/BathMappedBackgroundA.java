@@ -113,14 +113,14 @@ public class BathMappedBackgroundA implements Background {
 		} else if (map[col][row] == 1) {
 //			image = water;
 			
-			int var = (int) (Math.random() * 4 + 1);
-			if (var == 1) {
+			int var = (int) (Math.random() * 7 + 1);
+			if (var < 5) {
 				image = water1;
-			} else if (var == 2) {
+			} else if (var == 5) {
 				image = water2;
-			} else if (var == 3) {
+			} else if (var == 6) {
 				image = water3;
-			} else if (var == 4) {
+			} else if (var == 7) {
 				image = water4;
 			}
 		} else if (map[col][row] == 11) {

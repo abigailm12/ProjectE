@@ -28,6 +28,8 @@ public class QuackSprite implements DisplayableSprite {
 	private boolean moving = false;
 	private DisplayableSprite currentPath = null;
 	
+	private AudioPlayer audio = new AudioPlayer();
+	
 
 	private final double VELOCITY = 1.5;
 
@@ -79,6 +81,8 @@ public class QuackSprite implements DisplayableSprite {
 		System.out.print("numPaths : ");
 		System.out.println("" + list.current.getNumPaths());
 		System.out.println("");
+		
+		//audio.play("res/quackSound.wav");
 	}
 
 	public Image getImage() {
@@ -155,6 +159,7 @@ public class QuackSprite implements DisplayableSprite {
 				currentPath = getCurrentPath(universe);
 				System.out.println(direction + " " + currentPath);
 				steps++;
+				
 				System.out.println("Step " + steps);
 				System.out.println("Number of nodes : " + list.getSize());
 				System.out.println("Previous direction : " + list.getPreviousDirection());
@@ -166,6 +171,7 @@ public class QuackSprite implements DisplayableSprite {
 				if (checkFinishLineCollision(universe)) {
 					System.out.println("Finished!");
 					done = true;
+					audio.play("res/sounds/quackSound.wav");
 				}
 		}
 	}

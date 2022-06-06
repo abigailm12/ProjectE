@@ -15,6 +15,8 @@ public class LinkedList {
 	//			newNode
 	//
 	private int previousDirection = 3; //0:North 1:East 2:South 3:West
+	
+	private AudioPlayer audio = new AudioPlayer();
 
 	public void add(int previousDirection) {
 
@@ -210,6 +212,7 @@ public class LinkedList {
 			this.previousDirection = 2;
 			
 		} else {
+			audio.play("res/sounds/bounceSound.wav");
 			backtracking = true;
 			System.out.println("backtracking");
 			direction = -1;
