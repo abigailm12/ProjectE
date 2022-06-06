@@ -29,6 +29,10 @@ public class FinishLine implements DisplayableSprite {
 		this.centerY = centerY;
 		
 	}
+	
+	public boolean getStatus() {
+		return false;
+	}
 
 	public Image getImage() {
 		return image;
@@ -80,6 +84,12 @@ public class FinishLine implements DisplayableSprite {
 	}
 
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
+		
+	}
+
+	@Override
+	public void setStatus(boolean b) {
+		// TODO Auto-generated method stub
 		
 	}
 

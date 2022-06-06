@@ -146,6 +146,14 @@ public class QuackSprite implements DisplayableSprite {
 	public boolean getDispose() {
 		return dispose;
 	}
+	
+	public void setStatus(boolean b) {
+		this.done = b;
+	}
+	
+	public boolean getStatus() {
+		return done;
+	}
 
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 	

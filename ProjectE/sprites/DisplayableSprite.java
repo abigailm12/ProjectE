@@ -1,6 +1,8 @@
 import java.awt.Image;
 
 public interface DisplayableSprite {
+	
+	public static final LinkedList list = new LinkedList();
 
 	public abstract Image getImage();
 	
@@ -26,6 +28,10 @@ public interface DisplayableSprite {
 	
 	public void setDispose(boolean dispose);
 
-	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time);	
+	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time);
+
+	public boolean getStatus();	
+	
+	public void setStatus(boolean b);
 	
 }

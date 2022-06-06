@@ -14,6 +14,10 @@ public class VirtualSprite implements DisplayableSprite {
 	protected double centerY = 0;
 	protected double width = 0;
 	protected double height = 0;
+	
+	public boolean getStatus() {
+		return false;
+	}
 
 	public double getMinX() {
 		return centerX - (width / 2);
@@ -81,6 +85,12 @@ public class VirtualSprite implements DisplayableSprite {
 	@Override
 	public void setDispose(boolean dispose) {
 		//ignore		
+	}
+
+	@Override
+	public void setStatus(boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

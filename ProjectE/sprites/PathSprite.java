@@ -23,6 +23,10 @@ public class PathSprite implements DisplayableSprite {
 		
 	}
 	
+	public boolean getStatus() {
+		return false;
+	}
+	
 	public PathSprite(double minX, double minY, double maxX, double maxY, Image image) {
 		
 		this.image = image;
@@ -95,6 +99,12 @@ public class PathSprite implements DisplayableSprite {
 
 	@Override
 	public void setDispose(boolean dispose) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setStatus(boolean b) {
 		// TODO Auto-generated method stub
 		
 	}

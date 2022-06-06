@@ -32,6 +32,10 @@ public class BarrierSprite implements DisplayableSprite {
 		
 	}
 	
+	public boolean getStatus() {
+		return false;
+	}
+	
 	public BarrierSprite(double minX, double minY, double maxX, double maxY, Image image) {
 		
 		this.image = image;	
@@ -103,6 +107,12 @@ public class BarrierSprite implements DisplayableSprite {
 
 	@Override
 	public void setDispose(boolean dispose) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setStatus(boolean b) {
 		// TODO Auto-generated method stub
 		
 	}
