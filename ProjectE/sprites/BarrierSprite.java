@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 public class BarrierSprite implements DisplayableSprite {
 
 	private Image image;
-	private boolean visible = true;
+	private boolean visible = false;
 	private double centerX = 0;
 	private double centerY = 0;
 	private double width = 50;
@@ -18,7 +18,7 @@ public class BarrierSprite implements DisplayableSprite {
 		
 		if (image == null && visible) {
 			try {
-				image = ImageIO.read(new File("res/barrier.png"));
+				image = ImageIO.read(new File("res/old/barrier.png"));
 			}
 			catch (IOException e) {
 				e.printStackTrace();

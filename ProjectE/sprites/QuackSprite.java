@@ -27,6 +27,7 @@ public class QuackSprite implements DisplayableSprite {
 	int steps = 0;
 	private boolean moving = false;
 	private DisplayableSprite currentPath = null;
+	public boolean visible = true;
 	
 	private AudioPlayer audio = new AudioPlayer();
 	
@@ -107,7 +108,11 @@ public class QuackSprite implements DisplayableSprite {
 	//DISPLAYABLE
 
 	public boolean getVisible() {
-		return true;
+		return visible;
+	}
+	
+	public void setVisible(boolean b) {
+		this.visible = b;
 	}
 
 	public double getMinX() {

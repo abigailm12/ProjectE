@@ -92,5 +92,11 @@ public class VirtualSprite implements DisplayableSprite {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

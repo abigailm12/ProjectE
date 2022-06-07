@@ -7,6 +7,8 @@ public interface DisplayableSprite {
 	public abstract Image getImage();
 	
 	public boolean getVisible();
+	
+	public void setVisible(boolean b);
 
 	public double getMinX();
 

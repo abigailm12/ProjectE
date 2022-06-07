@@ -20,8 +20,8 @@ public class BackgroundSprite implements DisplayableSprite {
 	
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 50;
-	private double height = 50;
+	private double width = 800;
+	private double height = 600;
 	private boolean dispose = false;
 	
 	public BackgroundSprite(double centerX, double centerY) {
@@ -30,16 +30,16 @@ public class BackgroundSprite implements DisplayableSprite {
 		
 		if (tubA == null) {
 			try {
-				tubA = ImageIO.read(new File("res/backgrounds/*******.png"));
-				tubB = ImageIO.read(new File("res/backgrounds/*******.png"));
-				tubC = ImageIO.read(new File("res/backgrounds/*******.png"));
-				pondA = ImageIO.read(new File("res/backgrounds/*******.png"));
-				pondB = ImageIO.read(new File("res/backgrounds/*******.png"));
-				pondC = ImageIO.read(new File("res/backgrounds/*******.png"));
-				swampA = ImageIO.read(new File("res/backgrounds/*******.png"));
-				swampB = ImageIO.read(new File("res/backgrounds/*******.png"));
-				swampC = ImageIO.read(new File("res/backgrounds/*******.png"));
-				fire = ImageIO.read(new File("res/backgrounds/*******.png"));
+				tubA = ImageIO.read(new File("res/backgrounds/bath1.png"));
+				tubB = ImageIO.read(new File("res/backgrounds/bath2.png"));
+				tubC = ImageIO.read(new File("res/backgrounds/bath3.png"));
+				pondA = ImageIO.read(new File("res/backgrounds/pondA.png"));
+				pondB = ImageIO.read(new File("res/backgrounds/pondB.png"));
+				pondC = ImageIO.read(new File("res/backgrounds/pondC.png"));
+				swampA = ImageIO.read(new File("res/backgrounds/bath1.png"));
+				swampB = ImageIO.read(new File("res/backgrounds/bath2.png"));
+				swampC = ImageIO.read(new File("res/backgrounds/bath3.png"));
+				fire = ImageIO.read(new File("res/backgrounds/fire.png"));
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -132,6 +132,12 @@ public class BackgroundSprite implements DisplayableSprite {
 
 	@Override
 	public void setStatus(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
 		
 	}

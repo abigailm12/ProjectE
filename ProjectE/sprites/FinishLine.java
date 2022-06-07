@@ -93,4 +93,10 @@ public class FinishLine implements DisplayableSprite {
 		
 	}
 
+	@Override
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

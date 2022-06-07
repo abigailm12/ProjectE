@@ -6,46 +6,14 @@ public class ShellUniverse implements Universe {
 	public DisplayableSprite quack = null;
 	private DisplayableSprite finishLine = null;
 	private Background background = null;	
+	private DisplayableSprite backgroundSprite = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
-	public static int level = 0;
+	public static int level = 1;
 
 	public ShellUniverse () {
 		
-		//tiled background
-//		background = new TiledBackground();
-//		backgrounds =new ArrayList<Background>();
-//		backgrounds.add(background);
-		
-		//mapped background
-		//background = new MappedBackground();
-		//backgrounds =new ArrayList<Background>();
-		//backgrounds.add(background);
-		
-		//pond background
-//		background = new PondMappedBackground();
-//		backgrounds.add(background);
-		
-		//bath background
-		background = new BathMappedBackgroundA();
-		backgrounds.add(background);
-		
-		//barrier sprites
-		ArrayList<DisplayableSprite> barriers = ((BathMappedBackgroundA)background).getBarriers();
-		((BathMappedBackgroundA) background).getBarriers();
-		sprites.addAll(barriers);
-		
-		//path sprites
-		ArrayList<DisplayableSprite> paths = ((BathMappedBackgroundA)background).getPaths();
-		((BathMappedBackgroundA) background).getPaths();
-		sprites.addAll(paths);
-
-		this.setXCenter(0);
-		this.setYCenter(0);
-		quack = new QuackSprite(-345, -243);
-		finishLine = new FinishLine(340, 265);
-		sprites.add(finishLine);
-		sprites.add(quack);
+		updateBarrierPathSprites();
 			
 	}
 
@@ -101,63 +69,52 @@ public class ShellUniverse implements Universe {
 			quack.setStatus(false);
 			quack.list.reset();
 			level++;
-			updateBackground();
+			updateBarrierPathSprites();
 		}
 		
 		for (int i = 0; i < sprites.size(); i++) {
 			DisplayableSprite sprite = sprites.get(i);
 			sprite.update(this, keyboard, actual_delta_time);
-    	} 
-		
+    	} 		
 		
 	}
 	
-	private void updateBackground() {
+	private void updateBarrierPathSprites() {
+		System.out.println("updating sprites at level " + level);
 		backgrounds = new ArrayList<Background>();
+		background = new MappedBackground(level);
+		backgrounds.add(background);
+		sprites = new ArrayList<DisplayableSprite>();
+		if (quack != null) {
+			quack.setDispose(true);
+			quack.setVisible(false);
+			quack = null;
+		}
 		
-		quack.setStatus(false);
-		quack = new QuackSprite(-345, -243);
-		sprites.add(quack);
+		//mapped background (purely visual)
 		
-		//reset :
+		backgroundSprite = new BackgroundSprite(0, 0);
+		sprites.add(backgroundSprite);
+		
+		
+		
 		//barrier sprites
-		//ArrayList<DisplayableSprite> barriers = ((BathMappedBackgroundA)background).getBarriers();
-		//((BathMappedBackgroundA) background).getBarriers();
-		//sprites.addAll(barriers);
+		ArrayList<DisplayableSprite> barriers = ((MappedBackground)background).getBarriers();
+		((MappedBackground) background).getBarriers();
+		sprites.addAll(barriers);
 		
 		//path sprites
-		//ArrayList<DisplayableSprite> paths = ((BathMappedBackgroundA)background).getPaths();
-		//((BathMappedBackgroundA) background).getPaths();
-		//sprites.addAll(paths);
+		ArrayList<DisplayableSprite> paths = ((MappedBackground)background).getPaths();
+		((MappedBackground) background).getPaths();
+		sprites.addAll(paths);
 		
-		//move or remake quack
+		this.setXCenter(0);
+		this.setYCenter(0);
+		quack = new QuackSprite(-345, -243);
+		finishLine = new FinishLine(340, 265);
+		sprites.add(finishLine);
+		sprites.add(quack);
 		
-		//update visual
-		
-		if (level == 1) {
-			
-		} else if (level == 2) {
-
-		} else if (level == 3) {
-
-		} else if (level == 4) {
-
-		} else if (level == 5) {
-
-		} else if (level == 6) {
-
-		} else if (level == 7) {
-
-		} else if (level == 8) {
-
-		} else if (level == 9) {
-
-		} else if (level == 10) {
-
-		} else {
-			//end sprite created?
-			setComplete(true);
-		}
 	}
 
 	public String toString() {

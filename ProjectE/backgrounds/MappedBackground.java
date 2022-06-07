@@ -193,7 +193,8 @@ public class MappedBackground implements Background {
     	{0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0},
     };;
     	
-	public MappedBackground(int level) {	
+	public MappedBackground(int level) {
+		System.out.println("level : " + level);
 		if (level == 1) {
 			map = map1;
 		} else if (level == 2) {
