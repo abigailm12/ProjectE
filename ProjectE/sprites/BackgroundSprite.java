@@ -23,10 +23,14 @@ public class BackgroundSprite implements DisplayableSprite {
 	private double width = 800;
 	private double height = 600;
 	private boolean dispose = false;
+	private boolean visible = true;
+	private int level = 0;
 	
-	public BackgroundSprite(double centerX, double centerY) {
+	public BackgroundSprite(double centerX, double centerY, int level) {
+		System.out.println("made bg at level " + level);
 		this.centerX = centerX;
 		this.centerY = centerY;
+		this.level = level;	
 		
 		if (tubA == null) {
 			try {
@@ -48,11 +52,36 @@ public class BackgroundSprite implements DisplayableSprite {
 	}
 
 	public Image getImage() {
+		if (level == 1) {
+			image = tubA;
+		} else if (level == 2) {
+			image = tubB;
+		} else if (level == 3) {
+			image = tubC;
+		} else if (level == 4) {
+			image = pondA;
+		} else if (level == 5) {
+			image = pondB;
+		} else if (level == 6) {
+			image = pondC;
+		} else if (level == 7) {
+			image = swampA;
+		} else if (level == 8) {
+			image = swampB;
+		} else if (level == 9) {
+			image = swampC;
+		} else if (level == 10) {
+			image = fire;
+		} else {
+			image = fire;
+			System.out.println("level was below 1 or above 10:/");
+		}
 		return image;
 	}
 
 	public boolean getVisible() {
-		return true;
+		System.out.println("called getVisible at level " + level);
+		return visible;
 	}
 
 	public double getMinX() {
@@ -98,29 +127,6 @@ public class BackgroundSprite implements DisplayableSprite {
 
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-		int level = ShellUniverse.level;
-		
-		if (level == 1) {
-			image = tubA;
-		} else if (level == 2) {
-			image = tubB;
-		} else if (level == 3) {
-			image = tubC;
-		} else if (level == 4) {
-			image = pondA;
-		} else if (level == 5) {
-			image = pondB;
-		} else if (level == 6) {
-			image = pondC;
-		} else if (level == 7) {
-			image = swampA;
-		} else if (level == 8) {
-			image = swampB;
-		} else if (level == 9) {
-			image = swampC;
-		} else {
-			image = fire;
-		}
 		
 	}
 
@@ -138,7 +144,7 @@ public class BackgroundSprite implements DisplayableSprite {
 
 	@Override
 	public void setVisible(boolean b) {
-		// TODO Auto-generated method stub
+		this.visible = b;
 		
 	}
 
