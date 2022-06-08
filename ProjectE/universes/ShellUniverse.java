@@ -81,13 +81,7 @@ public class ShellUniverse implements Universe {
 	
 	private void updateBarrierPathSprites() {
 		
-		//making the new sprites just fine, but animation frame only looks at the old ones,
-		//new sprites exist, but not in the scope of animation frame for whatever reason
-		
-		System.out.println("updating sprites at level " + level);
-		//backgrounds = new ArrayList<Background>();
 		background = new MappedBackground(level);
-		//backgrounds.add(background);
 		sprites = new ArrayList<DisplayableSprite>();
 		if (quack != null) {
 			quack.setDispose(true);

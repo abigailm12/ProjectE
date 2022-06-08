@@ -190,6 +190,7 @@ public class AnimationFrame extends JFrame {
 				//REFRESH
 				this.logicalCenterX = universe.getXCenter();
 				this.logicalCenterY = universe.getYCenter();
+				sprites = universe.getSprites();
 				this.repaint();
 			}
 

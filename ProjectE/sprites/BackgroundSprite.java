@@ -80,7 +80,6 @@ public class BackgroundSprite implements DisplayableSprite {
 	}
 
 	public boolean getVisible() {
-		System.out.println("called getVisible at level " + level);
 		return visible;
 	}
 

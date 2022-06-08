@@ -75,15 +75,7 @@ public class QuackSprite implements DisplayableSprite {
 				System.out.println(e.toString());
 			}	
 		}
-		
-		//System.out.println("Step 0");
-		//System.out.println("Number of nodes : " + list);
-		//System.out.println("Previous direction : " + list.getPreviousDirection());
-		//System.out.print("numPaths : ");
-		//System.out.println("" + list.current.getNumPaths());
-		//System.out.println("");
-		
-		//audio.play("res/quackSound.wav");
+	
 	}
 
 	public Image getImage() {
