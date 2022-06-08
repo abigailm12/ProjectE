@@ -40,9 +40,9 @@ public class BackgroundSprite implements DisplayableSprite {
 				pondA = ImageIO.read(new File("res/backgrounds/pondA.png"));
 				pondB = ImageIO.read(new File("res/backgrounds/pondB.png"));
 				pondC = ImageIO.read(new File("res/backgrounds/pondC.png"));
-				swampA = ImageIO.read(new File("res/backgrounds/bath1.png"));
-				swampB = ImageIO.read(new File("res/backgrounds/bath2.png"));
-				swampC = ImageIO.read(new File("res/backgrounds/bath3.png"));
+				swampA = ImageIO.read(new File("res/backgrounds/swamp1.png"));
+				swampB = ImageIO.read(new File("res/backgrounds/swamp2.png"));
+				swampC = ImageIO.read(new File("res/backgrounds/swamp3.png"));
 				fire = ImageIO.read(new File("res/backgrounds/fire.png"));
 			}
 			catch (IOException e) {
