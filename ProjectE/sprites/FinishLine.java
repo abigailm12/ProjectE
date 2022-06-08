@@ -10,8 +10,8 @@ public class FinishLine implements DisplayableSprite {
 	private boolean visible = true;
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 50;
-	private double height = 50;
+	private double width = 16 * 5;
+	private double height = 10 * 5;
 	private boolean dispose = false;	
 	
 	public FinishLine(double centerX, double centerY) {
