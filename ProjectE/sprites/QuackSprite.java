@@ -32,7 +32,7 @@ public class QuackSprite implements DisplayableSprite {
 	private AudioPlayer audio = new AudioPlayer();
 	
 
-	private final double VELOCITY = 1.5; //1.5
+	private final double VELOCITY = 8; //1.5
 
 	public QuackSprite(double centerX, double centerY, double height, double width) {
 		this(centerX, centerY);
