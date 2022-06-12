@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 
 public class BackgroundSprite implements DisplayableSprite {
 	
+	private Image start;
 	private Image image;
 	private Image tubA;
 	private Image tubB;
@@ -17,6 +18,7 @@ public class BackgroundSprite implements DisplayableSprite {
 	private Image swampB;
 	private Image swampC;
 	private Image fire;
+	private Image end;
 	
 	private double centerX = 0;
 	private double centerY = 0;
@@ -34,6 +36,7 @@ public class BackgroundSprite implements DisplayableSprite {
 		
 		if (tubA == null) {
 			try {
+				start = ImageIO.read(new File("res/backgrounds/start1.png"));
 				tubA = ImageIO.read(new File("res/backgrounds/bath1.png"));
 				tubB = ImageIO.read(new File("res/backgrounds/bath2.png"));
 				tubC = ImageIO.read(new File("res/backgrounds/bath3.png"));
@@ -44,6 +47,7 @@ public class BackgroundSprite implements DisplayableSprite {
 				swampB = ImageIO.read(new File("res/backgrounds/swamp2.png"));
 				swampC = ImageIO.read(new File("res/backgrounds/swamp3.png"));
 				fire = ImageIO.read(new File("res/backgrounds/fire.png"));
+				end = ImageIO.read(new File("res/backgrounds/end1.png"));
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -52,7 +56,9 @@ public class BackgroundSprite implements DisplayableSprite {
 	}
 
 	public Image getImage() {
-		if (level == 1) {
+		if (level == 0) {
+			image = start;
+		} else if (level == 1) {
 			image = tubA;
 		} else if (level == 2) {
 			image = tubB;
@@ -73,7 +79,7 @@ public class BackgroundSprite implements DisplayableSprite {
 		} else if (level == 10) {
 			image = fire;
 		} else {
-			image = fire;
+			image = end;
 			System.out.println("level was below 1 or above 10:/");
 		}
 		return image;

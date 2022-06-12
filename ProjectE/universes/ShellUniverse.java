@@ -9,7 +9,7 @@ public class ShellUniverse implements Universe {
 	private DisplayableSprite backgroundSprite = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<Background> backgrounds = new ArrayList<Background>();
-	public static int level = 1;
+	public static int level = 0;
 
 	public ShellUniverse () {
 		
@@ -65,11 +65,18 @@ public class ShellUniverse implements Universe {
 			complete = true;
 		}
 		
-		if (quack.getStatus()) {
-			quack.setStatus(false);
-			quack.list.reset();
+		if (keyboard.keyDownOnce(32)) {
 			level++;
 			updateBarrierPathSprites();
+		}
+		
+		if (quack != null) {
+			if (quack.getStatus()) {
+				quack.setStatus(false);
+				quack.list.reset();
+				level++;
+				updateBarrierPathSprites();
+			}
 		}
 		
 		for (int i = 0; i < sprites.size(); i++) {
@@ -95,24 +102,25 @@ public class ShellUniverse implements Universe {
 		backgroundSprite = new BackgroundSprite(0, 0, level);
 		sprites.add(backgroundSprite);
 		
+		if (level != 0 && level != 11) {
 		
-		
-		//barrier sprites
-		ArrayList<DisplayableSprite> barriers = ((MappedBackground)background).getBarriers();
-		((MappedBackground) background).getBarriers();
-		sprites.addAll(barriers);
-		
-		//path sprites
-		ArrayList<DisplayableSprite> paths = ((MappedBackground)background).getPaths();
-		((MappedBackground) background).getPaths();
-		sprites.addAll(paths);
-		
-		this.setXCenter(0);
-		this.setYCenter(0);
-		quack = new QuackSprite(-345, -243);
-		finishLine = new FinishLine(340, 245);
-		sprites.add(finishLine);
-		sprites.add(quack);
+			//barrier sprites
+			ArrayList<DisplayableSprite> barriers = ((MappedBackground)background).getBarriers();
+			((MappedBackground) background).getBarriers();
+			sprites.addAll(barriers);
+			
+			//path sprites
+			ArrayList<DisplayableSprite> paths = ((MappedBackground)background).getPaths();
+			((MappedBackground) background).getPaths();
+			sprites.addAll(paths);
+			
+			this.setXCenter(0);
+			this.setYCenter(0);
+			quack = new QuackSprite(-345, -243);
+			finishLine = new FinishLine(340, 245);
+			sprites.add(finishLine);
+			sprites.add(quack);
+		}
 		
 	}
 

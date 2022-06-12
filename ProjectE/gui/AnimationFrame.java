@@ -40,7 +40,7 @@ public class AnimationFrame extends JFrame {
 	private boolean isPaused = false;
 
 	private KeyboardInput keyboard = new KeyboardInput();
-	protected Universe universe = null;
+	public Universe universe = null;
 
 	//local (and direct references to various objects in universe ... should reduce lag by avoiding dynamic lookup
 	private Animation animation = null;
