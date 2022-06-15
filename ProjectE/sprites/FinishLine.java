@@ -18,7 +18,7 @@ public class FinishLine implements DisplayableSprite {
 		
 		if (image == null && visible) {
 			try {
-				image = ImageIO.read(new File("res/FinishLine.png"));
+				image = ImageIO.read(new File("res/finishLine.png"));
 			}
 			catch (IOException e) {
 				e.printStackTrace();

@@ -21,7 +21,6 @@ public class QuackSprite implements DisplayableSprite {
 	private boolean dispose = false;
 	private boolean done = false;
 	private int direction = 2;//0:North 1:East 2:South 3:West
-	//Direction direction = WEST;
 	public LinkedList list = new LinkedList();
 	private int margin = 15;
 	int steps = 0;
@@ -32,7 +31,7 @@ public class QuackSprite implements DisplayableSprite {
 	private AudioPlayer audio = new AudioPlayer();
 	
 
-	private final double VELOCITY = 8; //1.5
+	private final double VELOCITY = 1.5;
 
 	public QuackSprite(double centerX, double centerY, double height, double width) {
 		this(centerX, centerY);
@@ -48,7 +47,6 @@ public class QuackSprite implements DisplayableSprite {
 		this.centerY = centerY;
 		
 		if (northImage == null) {
-			//System.out.println("populated image arrays");
 			try {				
 				northImage = new Image[FRAMES];
 				for (int i = 0; i < FRAMES; i++) {
@@ -162,15 +160,7 @@ public class QuackSprite implements DisplayableSprite {
 			} else {
 				direction = getDirection(universe);
 				currentPath = getCurrentPath(universe);
-				//System.out.println(direction + " " + currentPath);
-				steps++;
-				
-				//System.out.println("Step " + steps);
-				//System.out.println("Number of nodes : " + list.getSize());
-				//System.out.println("Previous direction : " + list.getPreviousDirection());
-				//System.out.println("current node hash : " + list.current.toString());
-				//System.out.println("current node coordinates : (" + list.current.getX() + ", " + list.current.getY() + ")");
-				//System.out.println("");
+			
 			}
 				
 				if (checkFinishLineCollision(universe)) {
@@ -350,22 +340,18 @@ public class QuackSprite implements DisplayableSprite {
 		if (numPaths < 3) {
 			if (south && previousDirection != 2) {
 				list.add(0);
-				//System.out.println("made south node");
 			}
 	
 			if (north && previousDirection != 0) {
 				list.add(2);
-				//System.out.println("made north node");
 			}
 	
 			if (west && previousDirection != 3) {
 				list.add(1);
-				//System.out.println("made west node");
 			}
 	
 			if (east && previousDirection != 1) {
 				list.add(3);
-				//System.out.println("made east node");
 			}
 			
 			direction = list.nextStep();

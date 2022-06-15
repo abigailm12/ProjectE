@@ -194,7 +194,9 @@ public class MappedBackground implements Background {
     };;
     	
 	public MappedBackground(int level) {
-		System.out.println("level : " + level);
+		if (level != 0 && level != 11) {
+			System.out.println("level : " + level);
+		}
 		if (level == 1) {
 			map = map1;
 		} else if (level == 2) {

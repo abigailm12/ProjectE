@@ -23,7 +23,6 @@ public class LinkedList {
 		int quackX = (int) Main.frame.universe.getPlayer1().getCenterX();
 		int quackY = (int) Main.frame.universe.getPlayer1().getCenterY();
 
-		//public Node(Node north, Node south, Node west, Node east, boolean explored)
 		Node newNode;
 
 		if (size == 0) {
@@ -122,7 +121,6 @@ public class LinkedList {
 		int direction = previousDirection;
 
 		if (current.getNode(direction) == null) {
-			System.out.println("found a turn");
 			if (current.getNorth() != null && direction != 2) {
 				direction = 0;
 				previousDirection = 0;
@@ -149,7 +147,6 @@ public class LinkedList {
 			backtracking = false;
 			finalStep = true;
 			current.getNode(direction).setNode(null, oppositeDirection);
-			System.out.println("done backtracking");
 			current = current.getNode(direction);
 			return direction;
 		}
@@ -161,7 +158,6 @@ public class LinkedList {
 	public int exploredIntersection() {
 
 		int direction = 0;
-		System.out.println("explored intersection");
 		if (current.getNorth() != null && !current.getNorth().getExplored()) {
 			direction = 0;
 			current = current.getNorth();
@@ -214,9 +210,7 @@ public class LinkedList {
 		} else {
 			audio.playAsynchronous("res/sounds/bounceSound.wav");
 			backtracking = true;
-			System.out.println("backtracking");
-			direction = -1;
-			
+			direction = -1;			
 		}
 
 		return direction;

@@ -29,7 +29,6 @@ public class BackgroundSprite implements DisplayableSprite {
 	private int level = 0;
 	
 	public BackgroundSprite(double centerX, double centerY, int level) {
-		System.out.println("made bg at level " + level);
 		this.centerX = centerX;
 		this.centerY = centerY;
 		this.level = level;	

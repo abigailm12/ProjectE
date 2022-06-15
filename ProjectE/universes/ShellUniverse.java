@@ -91,12 +91,6 @@ public class ShellUniverse implements Universe {
 		
 		background = new MappedBackground(level);
 		sprites = new ArrayList<DisplayableSprite>();
-		if (quack != null) {
-			quack.setDispose(true);
-			quack.setVisible(false);
-			quack = null;
-			backgroundSprite.setVisible(false);
-		}
 		
 		//mapped background (purely visual)
 		

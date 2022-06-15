@@ -27,7 +27,7 @@ public class FaucetSprite implements DisplayableSprite {
 		if (images == null) {
 			try {				
 				images = new Image[FRAMES];
-				for (int i = 0; i <= FRAMES; i++) {
+				for (int i = 0; i < FRAMES; i++) {
 					String path = String.format("res/faucetSprites/faucet-%d.png", i);
 					images[i] = ImageIO.read(new File(path));
 				}
