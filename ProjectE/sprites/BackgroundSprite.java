@@ -80,7 +80,6 @@ public class BackgroundSprite implements DisplayableSprite {
 			image = fire;
 		} else {
 			image = end;
-			System.out.println("level was below 1 or above 10:/");
 		}
 		return image;
 	}

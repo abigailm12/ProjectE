@@ -5,6 +5,7 @@ public class ShellUniverse implements Universe {
 	private boolean complete = false;	
 	public DisplayableSprite quack = null;
 	private DisplayableSprite finishLine = null;
+	private DisplayableSprite faucetSprite = null;
 	private Background background = null;	
 	private DisplayableSprite backgroundSprite = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
@@ -118,7 +119,12 @@ public class ShellUniverse implements Universe {
 			this.setYCenter(0);
 			quack = new QuackSprite(-345, -243);
 			finishLine = new FinishLine(340, 245);
+			faucetSprite = new FaucetSprite(300, -300);
 			sprites.add(finishLine);
+			if (level > 0 && level < 4) {
+				faucetSprite = new FaucetSprite(365, -150);
+				sprites.add(faucetSprite);
+			}
 			sprites.add(quack);
 		}
 		
